@@ -40,6 +40,8 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
+    'products',
+    'demands',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
