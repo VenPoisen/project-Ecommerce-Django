@@ -1,6 +1,7 @@
 from django.db import models
 from PIL import Image
 from django.conf import settings
+from django.utils.text import slugify
 import os
 
 
@@ -13,7 +14,7 @@ class Product(models.Model):
         blank=True,
         null=True
     )
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
     mrkt_price = models.FloatField(verbose_name='marketing price')
     promo_mrkt_price = models.FloatField(
         default=0,
@@ -32,6 +33,9 @@ class Product(models.Model):
         return self.slug
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.name)}'
+            self.slug = slug
         super().save(*args, **kwargs)
 
         if self.image:
