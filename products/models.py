@@ -2,6 +2,7 @@ from django.db import models
 from PIL import Image
 from django.conf import settings
 from django.utils.text import slugify
+from utils import utils
 import os
 
 
@@ -28,6 +29,14 @@ class Product(models.Model):
             ('S', 'Simple'),
         )
     )
+
+    def get_formatted_price(self):
+        return utils.price_format(self.mrkt_price)
+    get_formatted_price.short_description = 'Marketing Price'
+
+    def get_formatted_promo_price(self):
+        return utils.price_format(self.promo_mrkt_price)
+    get_formatted_promo_price.short_description = 'Promotional Price'
 
     def __str__(self):
         return self.slug

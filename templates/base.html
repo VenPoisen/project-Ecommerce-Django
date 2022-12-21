@@ -1,12 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% include 'partials/_head.html' %}
+    <title>{% block title %}{% endblock %} E-commerce</title>
 </head>
+
 <body>
-    
+    {% include 'partials/_nav.html' %}
+
+    <main class="container mt-4 mb-4">
+        {% block content %}{% endblock content %}
+
+        <div class="row mt-3">
+            <div class="col">
+                {% include 'partials/_pagination.html' %}
+            </div>
+        </div>
+
+    </main>
+
+    {% include 'partials/_footer.html' %}
 </body>
+
 </html>
