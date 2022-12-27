@@ -17,6 +17,26 @@ body {
     color: white;
 }
 
+.button-border {
+    background-color: inherit;
+    border-radius: 10%;
+    border-style: solid;
+    border-color: white;
+}
+
+.button-border:focus {
+    outline-style: solid;
+    outline-width: 0.1px;
+    outline-color: white;
+}
+
+.bars div {
+    width: 35px;
+    height: 3px;
+    background-color: white;
+    margin: 7px 0;
+}
+
 div#block-outside.block-outside {
     background-color: rgba(1, 1, 1, 0.5);
     display: none;
@@ -79,6 +99,7 @@ nav li .intern-menu {
 
 div#block-outside.block-outside,
 div#toggleMenu,
+.button-border:hover,
 nav#menu.menu,
 nav#menu.menu .close-menu,
 nav#menu.menu li a:hover,
@@ -111,8 +132,9 @@ nav#menu.menu li .intern-menu {
 }
 
 #menu .close-menu:hover,
-#toggleMenu:hover {
-    opacity: 0.5;
+#toggleMenu:hover,
+.button-border:hover {
+    opacity: 0.6;
 }
 
 nav.nav-header {
@@ -136,6 +158,17 @@ nav.nav-header .nav-header-flex img {
     max-height: 100px;
 }
 
+.img-max-height {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-space {
+    line-height: 35px;
+    font-size: 20px;
+}
+
 nav.nav-header div.search-item {
     display: flex;
     align-items: center;
@@ -147,4 +180,30 @@ nav.nav-header div.search-item a {
 
 nav.nav-header div.search-item .form-control {
     width: 400px;
+}
+
+@media (max-width: 600px) {
+    nav.nav-header div.search-item .form-inline {
+        max-width: 200px;
+    }
+
+    #toggleMenu {
+        display: none;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 991px) {
+    nav.nav-header div.search-item .form-control {
+        width: auto;
+    }
+
+    #toggleMenu {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    button.button-border {
+        display: none;
+    }
 }

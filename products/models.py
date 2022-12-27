@@ -3,6 +3,7 @@ from PIL import Image
 from django.conf import settings
 from django.utils.text import slugify
 from utils import utils
+from django.core.validators import MinValueValidator
 import os
 
 
@@ -72,10 +73,11 @@ class Product(models.Model):
 
 class Variation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True,
+                            null=True, verbose_name='Variation name')
     price = models.FloatField()
     promo_price = models.FloatField(default=0)
-    stock = models.PositiveIntegerField(default=1)
+    stock = models.PositiveIntegerField(validators=[MinValueValidator(1)])
 
     def __str__(self):
         return self.name or self.product.name

@@ -3,9 +3,17 @@
 <nav class="nav-header navbar navbar-dark main-color navbar-expand-lg">
     <div class="nav-header-width">
         <div class="nav-header-flex">
-            <a class="navbar-brand" href="base.html"> <img src="../static/android-chrome-192x192.png"
+            <a class="navbar-brand" href="{% url 'products:list' %}"> <img src="../static/android-chrome-192x192.png"
                     alt="logo site image">
             </a>
+
+            <button class="button-border" type="button" onclick="toggleMenu()">
+                <div class="bars">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </button>
 
             <div id="toggleMenu" onclick="toggleMenu()">Categories</div>
 

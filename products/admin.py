@@ -1,10 +1,14 @@
 from django.contrib import admin
 from .models import Product, Variation
+from .forms import RequiredVariation
 
 
 class VariationInline(admin.TabularInline):
     model = Variation
-    extra = 1
+    formset = RequiredVariation
+    min_num = 1
+    extra = 0
+    can_delete = True
 
 
 class VariationAdmin(admin.ModelAdmin):
