@@ -15,10 +15,10 @@
         price = this.options[this.selectedIndex].getAttribute('data-price');
         price_promo = this.options[this.selectedIndex].getAttribute('data-price-promo');
 
-        variation_preco.innerHTML = preco;
+        variation_price.innerHTML = price;
 
-        if (variation_preco_promocional) {
-            variation_preco_promocional.innerHTML = preco_promocional;
+        if (variation_promo_price) {
+            variation_promo_price.innerHTML = price_promo;
         }
     })
 })();
