@@ -5,36 +5,36 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card-columns">
+        <div class="card-columns grid-card">
 
             {% for product in products %}
-            <div class="card">
+            <div class="card second-color flex-card">
 
                 {% if product.image %}
-                <a href="{{ product.slug }}">
-                    <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}">
+                <a class="card-img-block" href="{{ product.slug }}">
+                    <img class="card-img-top card-img-size" src="{{ product.image.url }}" alt="{{ product.name }}">
                 </a>
                 {% endif %}
 
-                <div class="card-body">
-                    <h5 class="card-title">{{product.name}}</h5>
+                <div class="card-body text-justify">
+                    <h5 class="card-title text-center">{{product.name}}</h5>
                     <p class="card-text">{{product.summary}}</p>
-                    <div class="container product-price-block text-center">
+                </div>
+                <div class="container product-price-block text-center">
 
-                        {% if product.promo_mrkt_price %}
-                        <span class="product-price">
-                            {{product.promo_mrkt_price|price_format}}
-                        </span>
-                        <span class="product-old-price text-muted">
-                            {{product.mrkt_price|price_format}}
-                        </span>
-                        {% else %}
-                        <span class="product-price">
-                            {{product.mrkt_price|price_format}}
-                        </span>
-                        {% endif %}
+                    {% if product.promo_mrkt_price %}
+                    <span class="product-price">
+                        {{product.promo_mrkt_price|price_format}}
+                    </span>
+                    <span class="product-old-price text-muted">
+                        {{product.mrkt_price|price_format}}
+                    </span>
+                    {% else %}
+                    <span class="product-price">
+                        {{product.mrkt_price|price_format}}
+                    </span>
+                    {% endif %}
 
-                    </div>
                 </div>
                 <div class="card-footer bg-transparent border-top-light-custom text-center">
                     <a href="{{ product.slug }}" class="btn main-color btn-sm m-1 btn-block">

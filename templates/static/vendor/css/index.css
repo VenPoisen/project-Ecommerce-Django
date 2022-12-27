@@ -1,5 +1,22 @@
 body {
-    background-color: #111144;
+    background-color: rgb(17, 17, 78);
+}
+
+.grid-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+}
+
+.flex-card {
+    display: flex !important;
+    max-width: 350px;
+}
+
+.card-img-block {
+    height: 300px;
+    overflow: hidden;
+    text-align: center;
 }
 
 .main-color {
@@ -8,7 +25,7 @@ body {
 }
 
 .second-color {
-    background-color: #111144;
+    background-color: rgb(17, 17, 68);
     color: white;
 }
 
