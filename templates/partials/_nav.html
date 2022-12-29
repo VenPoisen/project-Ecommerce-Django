@@ -1,4 +1,6 @@
 {% load static %}
+{% load vnpfilters %}
+
 <div class="block-outside" id="block-outside" onclick="toggleMenu()"></div>
 <nav class="nav-header navbar navbar-dark main-color navbar-expand-lg">
     <div class="nav-header-width">
@@ -7,7 +9,7 @@
                     alt="logo site image">
             </a>
 
-            <button class="button-border" type="button" onclick="toggleMenu()">
+            <button class="button-border d-lg-none" type="button" onclick="toggleMenu()">
                 <div class="bars">
                     <div></div>
                     <div></div>
@@ -15,12 +17,16 @@
                 </div>
             </button>
 
-            <div id="toggleMenu" onclick="toggleMenu()">Categories</div>
+            <div id="toggleMenu" class="d-none d-lg-block" onclick="toggleMenu()">Categories</div>
 
             <nav id="menu" class="menu">
                 <div class="close-menu" onclick="toggleMenu()"></div>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li>
+                        <a href="{% url 'products:list' %}">
+                            Home
+                        </a>
+                    </li>
                     <li><a href="#">Link</a></li>
                     <li onmouseover="dropRight()" onmouseout="dropRight()">
                         <a href="#" role="button" data-toggle="dropdown">
@@ -36,16 +42,21 @@
                         <a class="disabled" href="#">Disabled</a>
                     </li>
                     <li>
-                        <a href="#">Cart</a>
+                        <a href="{% url 'products:cart' %}">
+                            Cart
+                        </a>
                     </li>
                 </ul>
             </nav>
 
             <div class="search-item">
-                <a class="" href="#">
-                    <strong>109x</strong>
+                {% if request.session.cart %}
+                <a class="" href="{% url 'products:cart' %}">
+                    <strong>{{request.session.cart|cart_total_qty}}x</strong>
                     <span class="fas fa-shopping-cart"></span>
                 </a>
+                {% endif %}
+
                 <form class="form-inline">
                     <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn second-color my-2 my-sm-0 text-white" type="submit">Search</button>
