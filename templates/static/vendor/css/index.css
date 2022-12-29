@@ -1,5 +1,9 @@
-body {
+body.unified-content {
     background-color: rgb(17, 17, 78);
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .grid-card {
@@ -203,24 +207,10 @@ nav.nav-header div.search-item .form-control {
     nav.nav-header div.search-item .form-inline {
         max-width: 200px;
     }
-
-    #toggleMenu {
-        display: none;
-    }
 }
 
 @media (min-width: 601px) and (max-width: 991px) {
     nav.nav-header div.search-item .form-control {
         width: auto;
-    }
-
-    #toggleMenu {
-        display: none;
-    }
-}
-
-@media (min-width: 992px) {
-    button.button-border {
-        display: none;
     }
 }
