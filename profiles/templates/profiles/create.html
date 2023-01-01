@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg">
+        <h1>Login</h1>
+    </div>
+    <div class="col-lg">
+
+        {% if request.user.is_authenticated %}
+        <h1>Update Profile</h1>
+
+        <form action="" method="post">
+            {% csrf_token %}
+        {{ userform|crispy }}
+        {% comment %} {{ profileform|crispy }} {% endcomment %}
+        {% comment %} {{ addressform|crispy }} {% endcomment %}
+
+        <div class="row">
+            <div class="col">
+                <button type="submit" class='btn main-color btn-block btn-lg'>Update</button>
+            </div>
+        </div>
+        </form>
+
+        {% else %}
+        <h1>Register</h1>
+
+        <form action="" method="post">
+            {% csrf_token %}
+        {{ userform|crispy }}
+        {{ profileform|crispy }}
+        {{ addressform|crispy }}
+
+
+        <div class="row">
+            <div class="col">
+                <button type="submit" class='btn main-color btn-block btn-lg'>Send</button>
+            </div>
+        </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

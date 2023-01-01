@@ -12,7 +12,7 @@ class Profile(models.Model):
     cpf = models.CharField(max_length=11, help_text='CPF only numbers')
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return f'{self.user}'
 
     def clean(self):
         error_msgs = {}
@@ -28,7 +28,7 @@ class Address(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     address = models.CharField(max_length=50)
     number = models.CharField(max_length=8)
-    complement = models.CharField(max_length=30)
+    complement = models.CharField(max_length=30, blank=True, null=True)
     neighborhood = models.CharField(max_length=30)
     cep = models.CharField(max_length=8, help_text='CEP only numbers')
     city = models.CharField(max_length=30)

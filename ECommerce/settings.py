@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'crispy_forms',
 
     # TODO: Remove after DEBUG=False
     "debug_toolbar",
@@ -176,6 +176,7 @@ SESSION_SAVE_EVERY_REQUEST = False
 # SESSION_ENGINE = "django.contrib.sessions.backends.file"
 # SESSION_FILE_PATH = '/home/alan/Desktop/temp'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # TODO: Remove after DEBUG=False && django-debug-toolbar
 INTERNAL_IPS = [
