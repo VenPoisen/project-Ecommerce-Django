@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.views.generic import ListView
 from django.views import View
 from django.http import HttpResponse
@@ -16,15 +17,28 @@ class BaseProfile(View):
         self.cart = copy.deepcopy(self.request.session.get('cart', {}))
 
         self.profile = None
+        self.address = None
 
         if self.request.user.is_authenticated:
+            self.template_name = 'profiles/update.html'
+
             self.profile = models.Profile.objects.filter(
                 user=self.request.user).first()
+            self.address = models.Address.objects.filter(
+                user=self.profile).all()
+
+            # For now using the first address to show up in the form.
+            instance_address = self.address.first()
+
+            # TODO: the idea is to show all the adresses using a for like this one:
+            # for i in range(0, self.address.count()):
+            #     print(self.address[i])
 
             self.context = {
                 'userform': forms.UserForm(data=self.request.POST or None, user=self.request.user, instance=self.request.user,),
-                'profileform': forms.ProfileForm(data=self.request.POST or None),
-                'addressform': forms.AddressForm(data=self.request.POST or None),
+                'profileform': forms.ProfileForm(data=self.request.POST or None, instance=self.profile),
+                # Must pass the 'instance=' in the POST addressform as well. Otherwise a new address will be created, rather than updating the old one. # TODO: observation for creating multiple addresses.
+                'addressform': forms.AddressForm(data=self.request.POST or None, instance=instance_address),
             }
         else:
             self.context = {
@@ -57,6 +71,7 @@ class Create(BaseProfile):
         email = self.userform.cleaned_data.get('email')
         first_name = self.userform.cleaned_data.get('first_name')
         last_name = self.userform.cleaned_data.get('last_name')
+        address_data = self.addressform.cleaned_data
 
         if self.request.user.is_authenticated:
             user = get_object_or_404(User, username=self.request.user.username)
@@ -70,6 +85,36 @@ class Create(BaseProfile):
             user.last_name = last_name
             user.save()
 
+            if not self.profile:
+                self.profileform.cleaned_data['user'] = user
+                profile = models.Profile(**self.profileform.cleaned_data)
+                profile.save()
+            else:
+                profile = self.profileform.save(commit=False)
+                profile.user = user
+                profile.save()
+
+            if not self.address:
+                self.addressform.cleaned_data['user'] = self.profile
+                address = models.Address(**self.addressform.cleaned_data)
+                address.save()
+            else:
+                address_exists = self.address.filter(
+                    address__iexact=address_data['address']).first()
+
+                if address_exists:
+                    if address_data['number'] != address_exists.number or address_data['neighborhood'] != address_exists.neighborhood or address_data['cep'] != address_exists.cep or address_data['city'] != address_exists.city or address_data['state'] != address_exists.state:
+                        address = self.addressform.save(commit=False)
+                        address.user = self.profile
+                        address.save()
+                        print('Entrei no if')
+
+                else:
+                    address = self.addressform.save(commit=False)
+                    address.user = self.profile
+                    address.save()
+                    print('TO FORA do if')
+
         else:
             user = self.userform.save(commit=False)
             user.set_password(password)
@@ -82,6 +127,16 @@ class Create(BaseProfile):
             address = self.addressform.save(commit=False)
             address.user = profile
             address.save()
+
+        if password:
+            authentica = authenticate(
+                self.request,
+                username=username,
+                password=password
+            )
+
+            if authentica:
+                login(self.request, user=user)
 
         self.request.session['cart'] = self.cart
         self.request.session.save()

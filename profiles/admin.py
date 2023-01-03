@@ -15,7 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class AddressAdmin(admin.ModelAdmin):
-    list_display = ('user', 'address', 'city',
+    list_display = ('user', 'address', 'number', 'city',
                     'state',)
 
 

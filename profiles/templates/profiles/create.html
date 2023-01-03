@@ -4,44 +4,33 @@
 {% block content %}
 
 <div class="row">
+
+    {% if not request.user.is_authenticated %}
     <div class="col-lg">
         <h1>Login</h1>
     </div>
-    <div class="col-lg">
+    {% endif %}
 
-        {% if request.user.is_authenticated %}
-        <h1>Update Profile</h1>
+    <div class="col-lg-6 m-auto">
 
-        <form action="" method="post">
-            {% csrf_token %}
-        {{ userform|crispy }}
-        {% comment %} {{ profileform|crispy }} {% endcomment %}
-        {% comment %} {{ addressform|crispy }} {% endcomment %}
-
-        <div class="row">
-            <div class="col">
-                <button type="submit" class='btn main-color btn-block btn-lg'>Update</button>
-            </div>
-        </div>
-        </form>
-
-        {% else %}
+        {% block updatetitle %}
         <h1>Register</h1>
-
+        {% endblock updatetitle %}
+        
         <form action="" method="post">
             {% csrf_token %}
         {{ userform|crispy }}
         {{ profileform|crispy }}
         {{ addressform|crispy }}
 
-
+        {% block updatebutton %}
         <div class="row">
             <div class="col">
                 <button type="submit" class='btn main-color btn-block btn-lg'>Send</button>
             </div>
         </div>
+        {% endblock updatebutton %}
         </form>
-        {% endif %}
     </div>
 </div>
 

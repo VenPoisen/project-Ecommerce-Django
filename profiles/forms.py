@@ -73,14 +73,14 @@ class UserForm(forms.ModelForm):
                 else:
                     validation_error_msgs['username'] = error_msg_user_exists
 
+            if not email_data:
+                validation_error_msgs['email'] = error_msg_required_field
+
             if email_db:
                 if email_data == str(self.user.email):
                     pass
                 else:
                     validation_error_msgs['email'] = error_msg_email_exists
-
-            if not email_data:
-                email_data = self.user.email
 
             if password_data:
                 if password_data != password_confirm_data:
