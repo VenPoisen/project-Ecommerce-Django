@@ -51,16 +51,40 @@
 
             <div class="search-item">
                 {% if request.session.cart %}
-                <a class="" href="{% url 'products:cart' %}">
+                <a class="cart-draw" href="{% url 'products:cart' %}">
                     <strong>{{request.session.cart|cart_total_qty}}x</strong>
                     <span class="fas fa-shopping-cart"></span>
                 </a>
                 {% endif %}
+                <div class="flex-search">
 
-                <form class="form-inline">
-                    <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn second-color my-2 my-sm-0 text-white" type="submit">Search</button>
-                </form>
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-size second-color my-2 my-sm-0 text-white" type="submit">Search</button>
+                    </form>
+
+                    {% if request.user.is_authenticated %}
+                    <div class="mt-3 profile-btn" onmouseover="dropDown()" onmouseout="dropDown()">
+                        <button class='btn second-color btn-size' type="button">
+                            Profile &#9662
+                        </button>
+                        <div class="profile-intern-menu second-color" id="profileDropDown">
+                            <a href="{% url 'profiles:create' %}">Update Profile</a>
+                            <a href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'profiles:logout' %}">Logout</a>
+                        </div>
+                    </div>
+
+                    {% else %}
+
+                    <button class='btn second-color btn-size mt-3 login-button' type="button">
+                        <a href="{% url 'profiles:create' %}">Login</a>
+                    </button>
+
+                    {% endif %}
+
+                </div>
             </div>
         </div>
     </div>

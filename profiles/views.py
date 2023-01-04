@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView
 from django.views import View
 from django.http import HttpResponse
@@ -61,9 +62,7 @@ class BaseProfile(View):
 class Create(BaseProfile):
     def post(self, *args, **kwargs):
 
-        # if not self.userform.is_valid() or not self.profileform.is_valid():
-        if not self.userform.is_valid():
-            print('Invalid')
+        if not self.userform.is_valid() or not self.profileform.is_valid():
             return self.render
 
         username = self.userform.cleaned_data.get('username')
@@ -107,13 +106,16 @@ class Create(BaseProfile):
                         address = self.addressform.save(commit=False)
                         address.user = self.profile
                         address.save()
-                        print('Entrei no if')
 
                 else:
                     address = self.addressform.save(commit=False)
                     address.user = self.profile
                     address.save()
-                    print('TO FORA do if')
+
+            messages.info(
+                self.request,
+                'Your profile has been successfully updated'
+            )
 
         else:
             user = self.userform.save(commit=False)
@@ -128,6 +130,11 @@ class Create(BaseProfile):
             address.user = profile
             address.save()
 
+            messages.info(
+                self.request,
+                'Your profile has been successfully created'
+            )
+
         if password:
             authentica = authenticate(
                 self.request,
@@ -140,7 +147,8 @@ class Create(BaseProfile):
 
         self.request.session['cart'] = self.cart
         self.request.session.save()
-        return self.render
+
+        return redirect('profiles:create')
 
 
 class Update(View):
@@ -148,8 +156,41 @@ class Update(View):
 
 
 class Login(View):
-    pass
+    def post(self, *args, **kwargs):
+        username = self.request.POST.get('username')
+        password = self.request.POST.get('password')
+
+        if not username or not password:
+            messages.error(
+                self.request,
+                'Invalid username or password'
+            )
+            return redirect('profiles:create')
+
+        user = authenticate(self.request, username=username, password=password)
+
+        if not user:
+            messages.error(
+                self.request,
+                'Invalid username or password'
+            )
+            return redirect('profiles:create')
+
+        login(self.request, user=user)
+        messages.success(
+            self.request,
+            'Login successful, proceed with your order'
+        )
+        return redirect('products:cart')
 
 
 class Logout(View):
-    pass
+    def get(self, *args, **kwargs):
+        cart = copy.deepcopy(self.request.session.get('cart', {}))
+
+        logout(self.request)
+
+        self.request.session['cart'] = cart
+        self.request.session.save()
+
+        return redirect('products:list')

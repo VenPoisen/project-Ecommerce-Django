@@ -95,8 +95,9 @@ nav#menu.menu li a {
     padding: 10px 20px;
 }
 
+
 nav#menu.menu li a:hover {
-    background-color: rgba(17, 17, 68, 0.2);
+    background-color: rgba(17, 17, 78, 0.2);
 }
 
 nav li .intern-menu {
@@ -124,7 +125,8 @@ div#toggleMenu,
 nav#menu.menu,
 nav#menu.menu .close-menu,
 nav#menu.menu li a:hover,
-nav#menu.menu li .intern-menu {
+nav#menu.menu li .intern-menu,
+.profile-intern-menu {
     transition: all ease-in-out 300ms;
     -webkit-transition: all ease-in-out 300ms;
 }
@@ -190,12 +192,63 @@ nav.nav-header .nav-header-flex img {
     font-size: 20px;
 }
 
-nav.nav-header div.search-item {
-    display: flex;
-    align-items: center;
+.btn:hover {
+    color: inherit;
 }
 
-nav.nav-header div.search-item a {
+.flex-search {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.btn-size {
+    width: 90px;
+}
+
+.profile-btn {
+    position: relative;
+}
+
+.profile-intern-menu {
+    display: block;
+    position: absolute;
+    left: -40px;
+    right: 0;
+    text-align: center;
+    z-index: 110;
+    display: none;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.login-button {
+    padding: 0;
+    margin: 0;
+}
+
+.profile-intern-menu a,
+.login-button a {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 6px 0;
+}
+
+.profile-intern-menu a {
+    font-size: 14px;
+}
+
+.profile-intern-menu a:hover {
+    background-color: rgba(220, 20, 60, 0.3);
+}
+
+nav.nav-header div.search-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+nav.nav-header div.search-item .cart-draw {
     margin: 10px;
 }
 

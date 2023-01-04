@@ -1,5 +1,6 @@
 var toggleStatus = 1;
 var dropStatus = 1;
+var dropDownStatus = 1;
 
 function dropRight() {
     if (dropStatus == 1 && toggleStatus == 0) {
@@ -27,3 +28,14 @@ function toggleMenu() {
     }
 };
 
+function dropDown() {
+    if (dropDownStatus == 1) {
+        document.getElementById("profileDropDown").style.display = "block"
+        dropDownStatus = 0
+    }
+
+    else if (dropDownStatus == 0) {
+        document.getElementById("profileDropDown").style.display = "none"
+        dropDownStatus = 1
+    }
+}
