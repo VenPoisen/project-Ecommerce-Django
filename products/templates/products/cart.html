@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load vnpfilters %}
-{% load static %}
 
 {% block content %}
 
@@ -11,52 +10,8 @@
         <h3>Shopping cart</h3>
         <p class="lead">The products, quantities and prices you have chosen.</p>
 
-        <div class="table-responsive">
-            <table class="table text-white">
-                <tr>
-                    <th class="d-none d-lg-block">Image</th>
-                    <th>Product</th>
-                    <th>Var.</th>
-                    <th>Unit price</th>
-                    <th>Qty</th>
-                    <th>Total</th>
-                </tr>
+        {% include 'partials/_cart.html' %}
 
-                {% for line in cart.values %}
-                <tr>    
-                    <td class="d-none d-sm-block">
-                        <a href="{% url 'products:detail' line.slug %}">
-                        <img class="cart-img" src="{% get_media_prefix %}{{ line.image }}">
-                        </a>
-                    </td>
-                    <td>
-                        <a class='text-white' href="{% url 'products:detail' line.slug %}">
-                            {{ line.product_name }}
-                        </a>
-                        <a class="ml-3" href="{%url 'products:removecart'%}?vid={{ line.variation_id }}">
-                            <i class="fas fa-times-circle text-danger" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                    <td>{{line.variation_name}}</td>
-                    
-                    {% if line.promo_unit_price %}
-                    <td>{{line.promo_unit_price|price_format}}</td>
-                    {% else %}
-                    <td>{{line.unit_price|price_format}}</td>
-                    {% endif %}
-                    
-                    <td>{{line.quantity}}x</td>
-
-                    {% if line.promo_quantitative_price %}
-                    <td>{{line.promo_quantitative_price|price_format}}</td>
-                    {% else %}
-                    <td>{{line.quantitative_price|price_format}}</td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-
-            </table>
-        </div>
     </div>
 </div>
 
@@ -75,10 +30,17 @@
         </div>
     </div>
     <div class="col-lg mt-auto">
-        <a class="btn btn-lg btn-block main-color" href="#">
+        {% if request.user.is_authenticated %}
+        <a class="btn btn-lg btn-block main-color" href="{% url 'products:checkout' %}">
             Proceed to Checkout
         </a>
+        {% else %}
+        <a class="btn btn-lg btn-block main-color" href="{% url 'profiles:create' %}">
+            Proceed to Checkout
+        </a>
+        {% endif %}
     </div>
+
 </div>
 
 {% else %}

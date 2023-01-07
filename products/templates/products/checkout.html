@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load vnpfilters %}
+
+{% block content %}
+
+<div class="row mb-5">
+    <div class="col-lg">
+        <h2>Review your order</h2>
+
+        <p class="lead mt-3">User details</p>
+        <p>If you need to edit <a href="{% url 'profiles:create' %}">click here</a></p>
+        <dl class="row">
+            <dt class="col-lg-2">Name:</dt>
+            <dd class="col-lg-4">{{user.first_name}}</dd>
+            <dt class="col-lg-2">Last name:</dt>
+            <dd class="col-lg-4">{{user.last_name}}</dd>
+
+            <dt class="col-lg-2">Age:</dt>
+            <dd class="col-lg-4">{{user.profile.age}}</dd>
+            <dt class="col-lg-2">Birth date:</dt>
+            <dd class="col-lg-4">{{user.profile.birth_date}}</dd>
+
+            <dt class="col-lg-2">CPF:</dt>
+            <dd class="col-lg-4">{{user.profile.cpf}}</dd>
+            <dt class="col-lg-2">E-mail:</dt>
+            <dd class="col-lg-4">{{user.email}}</dd>
+        </dl>
+
+        <p class="lead mt-3">Shipping Address</p>
+        <p>If you need to edit, <a href="{% url 'profiles:create' %}">click here</a></p>
+
+        <dl class="row">
+            <dt class="col-lg-2">Address:</dt>
+            <dd class="col-lg-4">{{first_address.address}}</dd>
+            <dt class="col-lg-2">Number:</dt>
+            <dd class="col-lg-4">{{first_address.number}}</dd>
+            
+            <dt class="col-lg-2">Complement:</dt>
+            <dd class="col-lg-4">{{first_address.complement}}</dd>
+            <dt class="col-lg-2">Neighborhood:</dt>
+            <dd class="col-lg-4">{{first_address.neighborhood}}</dd>
+            
+            <dt class="col-lg-2">City:</dt>
+            <dd class="col-lg-4">{{first_address.city}}</dd>
+            <dt class="col-lg-2">State:</dt>
+            <dd class="col-lg-4">{{first_address.state}}</dd>
+
+            <dt class="col-lg-2">CEP:</dt>
+            <dd class="col-lg-4">{{first_address.cep}}</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <h3>Shopping cart</h3>
+        <p class="lead">The products, quantities and prices you have chosen.</p>
+
+        {% include 'partials/_cart.html' %}
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col">
+        <p class="lead text-center"><span class="font-weight-bold">TOTAL: </span> {{cart|cart_totals|price_format}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-block main-color btn-lg" href="{% url 'orders:pay' %}">
+            Place order and pay
+        </a>
+    </div>
+</div>
+
+{% endblock %}

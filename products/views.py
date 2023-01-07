@@ -1,3 +1,4 @@
+from profiles.models import Address, Profile
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -127,7 +128,7 @@ class RemoveFromCart(View):
 
         cart = self.request.session['cart'][variation_id]
 
-        messages.success(
+        messages.info(
             self.request,
             f'{cart["product_name"]} {cart["variation_name"]} removed from cart.'
         )
@@ -148,4 +149,36 @@ class Cart(View):
 
 
 class Checkout(View):
-    pass
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            messages.info(
+                self.request,
+                'Login or create an account to proceed with the order'
+            )
+            return redirect('profiles:create')
+
+        if not self.request.session['cart']:
+            return redirect('products:cart')
+
+        self.profile = Profile.objects.filter(
+            user=self.request.user).first()
+        self.address = Address.objects.filter(
+            user=self.profile).all()
+
+        if not self.profile or not self.address:
+            messages.error(
+                self.request, 'Complete your profile and address before proceeding with your order')
+            return redirect('profiles:create')
+
+        instance_address = []
+        for i in range(0, self.address.count()):
+            instance_address.append(self.address[i])
+        first_address = instance_address[0]
+
+        context = {
+            'user': self.request.user,
+            'cart': self.request.session['cart'],
+            'first_address': first_address,
+        }
+
+        return render(self.request, 'products/checkout.html', context)

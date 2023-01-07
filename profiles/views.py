@@ -62,8 +62,12 @@ class BaseProfile(View):
 class Create(BaseProfile):
     def post(self, *args, **kwargs):
 
-        if not self.userform.is_valid() or not self.profileform.is_valid():
-            return self.render
+        if not self.userform.is_valid() or not self.profileform.is_valid() or not self.addressform.is_valid():
+            messages.error(
+                self.request,
+                'There are errors in the register form. Check if all fields have been filled correctly.'
+            )
+            return render(self.request, self.template_name, self.context)
 
         username = self.userform.cleaned_data.get('username')
         password = self.userform.cleaned_data.get('password')
@@ -71,6 +75,9 @@ class Create(BaseProfile):
         first_name = self.userform.cleaned_data.get('first_name')
         last_name = self.userform.cleaned_data.get('last_name')
         address_data = self.addressform.cleaned_data
+
+        cpf_data = self.profileform.cleaned_data.get('cpf')
+        cpf_db = models.Profile.objects.filter(cpf=cpf_data).first()
 
         if self.request.user.is_authenticated:
             user = get_object_or_404(User, username=self.request.user.username)
@@ -83,6 +90,12 @@ class Create(BaseProfile):
             user.first_name = first_name
             user.last_name = last_name
             user.save()
+
+            if cpf_db:
+                if str(cpf_db) != str(self.profile.user):
+                    messages.error(
+                        self.request, 'CPF is already registered.')
+                    return redirect('profiles:create')
 
             if not self.profile:
                 self.profileform.cleaned_data['user'] = user
@@ -117,7 +130,15 @@ class Create(BaseProfile):
                 'Your profile has been successfully updated'
             )
 
+            if self.request.session.get('cart'):
+                return redirect('products:checkout')
+
         else:
+            if cpf_db:
+                messages.error(
+                    self.request, 'The CPF is already registered.')
+                return render(self.request, self.template_name, self.context)
+
             user = self.userform.save(commit=False)
             user.set_password(password)
             user.save()
@@ -148,7 +169,9 @@ class Create(BaseProfile):
         self.request.session['cart'] = self.cart
         self.request.session.save()
 
-        return redirect('profiles:create')
+        if self.request.session['cart']:
+            return redirect('products:cart')
+        return self.render
 
 
 class Update(View):
@@ -177,11 +200,19 @@ class Login(View):
             return redirect('profiles:create')
 
         login(self.request, user=user)
-        messages.success(
+
+        if self.request.session.get('cart'):
+            messages.info(
+                self.request,
+                'Login successful, proceed with your order'
+            )
+            return redirect('products:cart')
+
+        messages.info(
             self.request,
-            'Login successful, proceed with your order'
+            'Login successful'
         )
-        return redirect('products:cart')
+        return redirect('products:list')
 
 
 class Logout(View):
