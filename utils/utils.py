@@ -1,5 +1,5 @@
 def price_format(value):
-    return f'${value:.2f}'.replace('.', ',')
+    return f'$ {value:.2f}'.replace('.', ',')
 
 
 def cart_total_qty(cart):

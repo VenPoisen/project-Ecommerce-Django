@@ -5,7 +5,7 @@ from . import views
 app_name = 'orders'
 
 urlpatterns = [
-    path('', views.Pay.as_view(), name='pay'),
-    path('closeorder/', views.CloseOrder.as_view(), name='closeorder'),
+    path('pay/<int:pk>', views.Pay.as_view(), name='pay'),
+    path('saveorder/', views.SaveOrder.as_view(), name='saveorder'),
     path('orderdetails/', views.OrderDetails.as_view(), name='orderdetails'),
 ]
