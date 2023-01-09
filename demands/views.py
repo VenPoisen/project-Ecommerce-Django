@@ -15,17 +15,17 @@ class DispatchLoginRequired(View):
 
         return super().dispatch(*args, **kwargs)
 
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(user=self.request.user)
+        return qs
+
 
 class Pay(DispatchLoginRequired, DetailView):
     template_name = 'orders/pay.html'
     model = Demand
     pk_url_kwarg = 'pk'
     context_object_name = 'order'
-
-    def get_queryset(self, *args, **kwargs):
-        qs = super().get_queryset(*args, **kwargs)
-        qs = qs.filter(user=self.request.user)
-        return qs
 
 
 class SaveOrder(View):
@@ -115,6 +115,16 @@ class SaveOrder(View):
         )
 
 
-class OrderDetails(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse('Order details')
+class OrderList(DispatchLoginRequired, ListView):
+    model = Demand
+    context_object_name = 'orders'
+    template_name = 'orders/orderlist.html'
+    paginate_by = 10
+    ordering = ['-id']
+
+
+class OrderDetails(DispatchLoginRequired, DetailView):
+    model = Demand
+    context_object_name = 'order'
+    template_name = 'orders/orderdetails.html'
+    pk_url_kwarg = 'pk'

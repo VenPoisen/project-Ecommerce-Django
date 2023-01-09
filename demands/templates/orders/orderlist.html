@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load vnpfilters %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h3 class="mb-4">Orders from {{user}}</h3>
+        <p>Here are all your orders placed in the store.</p>
+
+        <div class="table-responsive">
+            <table class="table table-striped text-white">
+                <tr>
+                    <th scope="col">Order</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Qty of Items</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">More Details</th>
+                </tr>
+
+                {% for order in orders %}
+                <tr>
+                    <th scope="row">{{order}}</td>
+                    <td>{{order.total|price_format}}</td>
+                    <td>{{order.total_qty}}</td>
+                    <td>{{order.get_status_display}}</td>
+                    <td>
+                        <a href="{% url 'orders:details' order.id %}">
+                            Open <i class="fas fa-search-plus ml-2"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/_pagination.html' %}
+{% endblock content %}

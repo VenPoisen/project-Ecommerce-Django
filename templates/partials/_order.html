@@ -1,0 +1,60 @@
+{% load static %}
+{% load vnpfilters %}
+
+<div class="row">
+    <div class="col">
+        <h3>{{order}}</h3>
+
+        <div class="row mt-4">
+            <div class="col-lg-2 font-weight-bold">Order number:</div>
+            <div class="col-lg-4">{{order.id}}</div>
+            <div class="col-lg-2 font-weight-bold">Total payment:</div>
+            <div class="col-lg-4">{{order.total|price_format}}</div>
+
+            <div class="col-lg-2 font-weight-bold">Qty Items:</div>
+            <div class="col-lg-4">{{order.total_qty}}</div>
+            <div class="col-lg-2 font-weight-bold">Status:</div>
+            <div class="col-lg-4">{{order.get_status_display}}</div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <h3>Products</h3>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+            <table class="table text-white">
+                <tr>
+                    <th class="d-none d-lg-block">Image</th>
+                    <th>Product</th>
+                    <th>Var.</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+
+                {% for line in order.itemdemand_set.all %}
+                <tr>
+                    <td class="d-none d-lg-block">
+                        <img class="cart-img" src="{% get_media_prefix%}{{line.image}}">
+                    </td>
+                    <td>{{line.product}}</td>
+                    <td>{{line.variation}}</td>
+                    <td>{{line.quantity}}</td>
+                    <td>
+                        {% if line.promo_price %}
+                        {{line.promo_price|price_format}}
+                        {% else %}
+                        {{line.price|price_format}}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+
+
+    </div>
+</div>
