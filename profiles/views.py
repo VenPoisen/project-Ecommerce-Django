@@ -174,10 +174,6 @@ class Create(BaseProfile):
         return self.render
 
 
-class Update(View):
-    pass
-
-
 class Login(View):
     def post(self, *args, **kwargs):
         username = self.request.POST.get('username')
