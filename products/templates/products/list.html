@@ -11,7 +11,7 @@
             <div class="card second-color flex-card">
 
                 {% if product.image %}
-                <a class="card-img-block" href="{{ product.slug }}">
+                <a class="card-img-block" href="{% url 'products:detail' product.slug %}">
                     <img class="card-img-top card-img-size" src="{{ product.image.url }}" alt="{{ product.name }}">
                 </a>
                 {% endif %}
@@ -37,7 +37,7 @@
 
                 </div>
                 <div class="card-footer bg-transparent border-top-light-custom text-center">
-                    <a href="{{ product.slug }}" class="btn main-color btn-sm m-1 btn-block">
+                    <a href="{% url 'products:detail' product.slug %}" class="btn main-color btn-sm m-1 btn-block">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         Buy
                     </a>

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views import View
 from django.http import HttpResponse
 from django.contrib import messages
+from django.db.models import Q
 from . import models
 
 
@@ -15,6 +16,27 @@ class ProductList(ListView):
     context_object_name = 'products'
     paginate_by = 6
     ordering = ['-id']
+
+
+class Search(ProductList):
+    def get_queryset(self, *args, **kwargs):
+        term = self.request.GET.get('term') or self.request.session['term']
+        qs = super().get_queryset(*args, **kwargs)
+
+        if not term:
+            return qs
+
+        self.request.session['term'] = term
+
+        qs = qs.filter(
+            Q(name__icontains=term) |
+            Q(summary__icontains=term) |
+            Q(description__icontains=term)
+        )
+
+        self.request.session.save()
+
+        return qs
 
 
 class ProductDetails(DetailView):

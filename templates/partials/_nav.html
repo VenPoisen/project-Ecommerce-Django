@@ -58,8 +58,9 @@
                 {% endif %}
                 <div class="flex-search">
 
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+                    <form class="form-inline" method="get" action="{% url 'products:search' %}">
+                        <input name="term" value="{{ request.GET.term }}" class="form-control mr-sm-3" type="search"
+                            placeholder="Search" aria-label="Search">
                         <button class="btn btn-size second-color my-2 my-sm-0 text-white" type="submit">Search</button>
                     </form>
 
