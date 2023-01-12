@@ -17,6 +17,16 @@ class Profile(models.Model):
     def clean(self):
         error_msgs = {}
 
+        cpf_form = self.cpf or None
+        cpf_save = None
+        profile = Profile.objects.filter(cpf=cpf_form).first()
+
+        if profile:
+            cpf_save = profile.cpf
+
+            if cpf_save is not None and self.pk != profile.pk:
+                error_msgs['cpf'] = 'CPF already exists.'
+
         if not valida_cpf(self.cpf):
             error_msgs['cpf'] = 'Type a valid CPF'
 
