@@ -1,72 +1,74 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block title %}Create Profile | {% endblock %}
+
 {% block content %}
 
 <div class="row">
 
-    {% if not request.user.is_authenticated %}
-    <div class="col-lg">
-        <h3>Login</h3>
+  {% if not request.user.is_authenticated %}
+  <div class="col-lg">
+    <h3>Login</h3>
 
-        <form method='POST' action="{% url 'profiles:login' %}">
-            {% csrf_token %}
-            
-            <div class="form-outline mb-3 mt-4">
-                <label class="form-label" for="InputUser1">Username</label>
-                <input type="text" name='username' id="InputUser1" class="form-control" />
-            </div>
-          
-            <div class="form-outline mb-4">
-                <label class="form-label" for="InputPassword1">Password</label>
-                <input type="password" name='password' id="InputPassword1" class="form-control" />
-            </div>
-          
-            <div class="row mb-4">
-              <div class="col d-flex justify-content-center">
-               
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="RememberUser1" checked />
-                  <label class="form-check-label" for="RememberUser1"> Remember me </label>
-                </div>
+    <form method='POST' action="{% url 'profiles:login' %}">
+      {% csrf_token %}
 
-              </div>
-          
-              <div class="col">
-                <a href="#!">Forgot password?</a>
-              </div>
-            </div>
-          
-            <button type="submit" class="btn main-color btn-block mb-4">Sign in</button>
-          
-            <div class="text-center">
-              <p>Not a member? <a href="#!">Register</a></p>
-            </div>
-          </form>
-    </div>
-    {% endif %}
+      <div class="form-outline mb-3 mt-4">
+        <label class="form-label" for="InputUser1">Username</label>
+        <input type="text" name='username' id="InputUser1" class="form-control" />
+      </div>
 
-    <div class="col-lg-6 m-auto">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="InputPassword1">Password</label>
+        <input type="password" name='password' id="InputPassword1" class="form-control" />
+      </div>
 
-        {% block updatetitle %}
-        <h3>Register</h3>
-        {% endblock updatetitle %}
-        
-        <form class='mt-4' action="" method="post">
-            {% csrf_token %}
-        {{ userform|crispy }}
-        {{ profileform|crispy }}
-        {{ addressform|crispy }}
+      <div class="row mb-4">
+        <div class="col d-flex justify-content-center">
 
-        {% block updatebutton %}
-        <div class="row">
-            <div class="col">
-                <button type="submit" class='btn main-color btn-block btn-lg'>Send</button>
-            </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="RememberUser1" checked />
+            <label class="form-check-label" for="RememberUser1"> Remember me </label>
+          </div>
+
         </div>
-        {% endblock updatebutton %}
-        </form>
-    </div>
+
+        <div class="col">
+          <a href="#!">Forgot password?</a>
+        </div>
+      </div>
+
+      <button type="submit" class="btn main-color btn-block mb-4">Sign in</button>
+
+      <div class="text-center">
+        <p>Not a member? <a href="#!">Register</a></p>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+
+  <div class="col-lg-6 m-auto">
+
+    {% block updatetitle %}
+    <h3>Register</h3>
+    {% endblock updatetitle %}
+
+    <form class='mt-4' action="" method="post">
+      {% csrf_token %}
+      {{ userform|crispy }}
+      {{ profileform|crispy }}
+      {{ addressform|crispy }}
+
+      {% block updatebutton %}
+      <div class="row">
+        <div class="col">
+          <button type="submit" class='btn main-color btn-block btn-lg'>Send</button>
+        </div>
+      </div>
+      {% endblock updatebutton %}
+    </form>
+  </div>
 </div>
 
 {% endblock %}

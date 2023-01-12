@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load vnpfilters %}
 
+{% block title %}{{product.name}} | {% endblock %}
+
 {% block content %}
 
 <div class="row">
@@ -26,8 +28,7 @@
                             {{product.promo_mrkt_price|price_format}}
                         </span>
 
-                        <span id="variation-price"
-                            class="lead product-old-price">
+                        <span id="variation-price" class="lead product-old-price">
                             {{product.mrkt_price|price_format}}
                         </span>
 
@@ -38,24 +39,27 @@
 
                         {% endif %}
                     </p>
-                    
+
                     <form action="{% url 'products:addcart' %}" id="form-add-to-cart">
                         <div class="form-group ">
                             <select id="select-variations" name="vid" class="form-control form-control-lg">
 
                                 {% for variation in product.variation_set.all %}
-                                
+
                                 {% if variation.promo_price %}
-                                
-                                <option data-price="{{ variation.price|price_format }}" data-price-promo="{{ variation.promo_price|price_format }}" value="{{ variation.id }}">
+
+                                <option data-price="{{ variation.price|price_format }}"
+                                    data-price-promo="{{ variation.promo_price|price_format }}"
+                                    value="{{ variation.id }}">
                                     {{variation}}
                                 </option>
-                                
+
                                 {% else %}
-                                <option data-price-promo="{{ variation.price|price_format }}" value="{{ variation.id }}">
+                                <option data-price-promo="{{ variation.price|price_format }}"
+                                    value="{{ variation.id }}">
                                     {{variation}}
                                 </option>
-                                
+
                                 {% endif %}
 
                                 {%endfor%}
