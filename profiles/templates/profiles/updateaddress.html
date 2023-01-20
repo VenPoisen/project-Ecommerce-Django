@@ -1,0 +1,20 @@
+{% extends 'profiles/create.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}Update Addresses from {{ user }} | {% endblock %}
+
+{% block updatetitle %}
+<h2>Update Address</h2><br>
+{% endblock updatetitle %}
+
+{% block updateform %}
+
+{% csrf_token %}
+<span id="error_cep"></span>
+{% crispy addressdetails %}
+
+
+{% endblock updateform %}
+
+{% block updatebutton %}{% endblock updatebutton %}

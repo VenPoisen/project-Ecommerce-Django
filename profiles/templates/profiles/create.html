@@ -54,11 +54,14 @@
     <h3>Register</h3>
     {% endblock updatetitle %}
 
-    <form class='mt-4' action="" method="post">
+    <form class='mt-4' id="update-cep" action="" method="post">
+      {% block updateform %}
+
       {% csrf_token %}
       {{ userform|crispy }}
       {{ profileform|crispy }}
-      {{ addressform|crispy }}
+
+      {% endblock updateform %}
 
       {% block updatebutton %}
       <div class="row">

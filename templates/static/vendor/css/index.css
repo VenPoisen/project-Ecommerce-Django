@@ -6,10 +6,15 @@ body.unified-content {
     justify-content: space-between;
 }
 
+body main {
+    max-width: 1300px;
+}
+
 .grid-card {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
+    justify-items: center;
 }
 
 .flex-card {
@@ -33,7 +38,8 @@ body.unified-content {
     color: white;
 }
 
-.nav-header a {
+.nav-header a,
+.new-address a {
     text-decoration: none;
     color: white;
 }
@@ -88,11 +94,20 @@ nav#menu.menu ul {
     padding: 0;
 }
 
-nav#menu.menu li a {
+nav#menu.menu li a,
+.new-address a {
     display: block;
     width: 100%;
     height: 100%;
     padding: 10px 20px;
+}
+
+.new-address {
+    padding: 0;
+}
+
+.new-address a {
+    padding: 10px;
 }
 
 
@@ -126,7 +141,8 @@ nav#menu.menu,
 nav#menu.menu .close-menu,
 nav#menu.menu li a:hover,
 nav#menu.menu li .intern-menu,
-.profile-intern-menu {
+.profile-intern-menu,
+.address-table tbody tr:hover {
     transition: all ease-in-out 300ms;
     -webkit-transition: all ease-in-out 300ms;
 }
@@ -192,7 +208,8 @@ nav.nav-header .nav-header-flex img {
     font-size: 20px;
 }
 
-.btn:hover {
+.btn:hover,
+.address-table tbody tr:hover {
     color: inherit;
 }
 
@@ -204,6 +221,19 @@ nav.nav-header .nav-header-flex img {
 
 .btn-size {
     width: 90px;
+}
+
+.button-table {
+    text-align: end;
+}
+
+input[type="text"]:disabled {
+    background: rgb(180, 180, 180);
+    color: black;
+}
+
+.mb-button-cep {
+    margin-bottom: 7px;
 }
 
 .profile-btn {

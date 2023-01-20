@@ -188,10 +188,14 @@ class Checkout(View):
         self.address = Address.objects.filter(
             user=self.profile).all()
 
-        if not self.profile or not self.address:
+        if not self.profile:
             messages.error(
                 self.request, 'Complete your profile and address before proceeding with your order')
             return redirect('profiles:create')
+        if not self.address:
+            messages.error(
+                self.request, 'Create a new address before proceeding with your order')
+            return redirect('profiles:address')
 
         instance_address = []
         for i in range(0, self.address.count()):
