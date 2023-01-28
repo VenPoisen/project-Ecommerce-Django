@@ -1,6 +1,7 @@
 var toggleStatus = 1;
 var dropStatus = 1;
 var dropDownStatus = 1;
+var favoriteStatus = 1;
 
 function dropRight() {
     if (dropStatus == 1 && toggleStatus == 0) {
@@ -37,5 +38,73 @@ function dropDown() {
     else if (dropDownStatus == 0) {
         document.getElementById("profileDropDown").style.display = "none"
         dropDownStatus = 1
+
     }
+}
+
+function getCEP() {
+
+    $.ajax({
+        type: 'GET',
+        url: 'address/',
+        data: {
+            cep: $('#id_cep').val(),
+            address: $('#id_address').val(),
+            complement: $('#id_complement').val(),
+        },
+        success: function (data) {
+            $('#id_address').attr('value', data.address);
+            $('#id_neighborhood').attr('value', data.neighborhood);
+            $('#id_city').attr('value', data.city);
+            $('#id_state').attr('value', data.state);
+
+            if (data.cep == undefined && data.address == undefined) {
+                $("#div_id_cep").html(data);
+                $("#submit-id-submit").prop("disabled", true)
+            }
+            else {
+                $(document).on('change', ".is-invalid", function () {
+                    $(this).removeClass('is-invalid');
+                });
+                $("#submit-id-submit").prop("disabled", false)
+            }
+            if (data.complement) {
+                $('#id_complement').val(data.complement);
+            }
+        },
+    })
+}
+
+function inputSelector() {
+    $.ajax({
+        type: 'GET',
+        url: 'getaddress/',
+        data: {
+            inputSelect: $("#inputSelect").val(),
+        },
+        success: function (data) {
+
+            if ($("#empty-address").attr("selected", false)) {
+
+                document.getElementById("displayInput").classList.remove("d-none");
+
+                address = document.getElementById("g-address");
+                number = document.getElementById("g-number");
+                complement = document.getElementById("g-complement");
+                neighborhood = document.getElementById("g-neighborhood");
+                city = document.getElementById("g-city");
+                state = document.getElementById("g-state");
+                cep = document.getElementById("g-cep");
+
+                address.innerHTML = data.address;
+                number.innerHTML = data.number;
+                complement.innerHTML = data.complement;
+                neighborhood.innerHTML = data.neighborhood;
+                city.innerHTML = data.city;
+                state.innerHTML = data.state;
+                cep.innerHTML = data.cep;
+            }
+        }
+    })
+
 }

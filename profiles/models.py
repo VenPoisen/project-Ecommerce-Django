@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ValidationError
 from utils.validacpf import valida_cpf
+from utils.addressgenerator import address
 import re
 
 
@@ -86,8 +87,22 @@ class Address(models.Model):
     def clean(self):
         error_msgs = {}
 
+        if self.cep == "":
+            error_msgs['cep'] = 'Invalid CEP.'
+
+        address_generator = address(self.cep)
+
+        if address_generator is None:
+            error_msgs['cep'] = 'Invalid CEP.'
+
+        else:
+            self.address = address_generator['logradouro']
+            self.neighborhood = address_generator['bairro']
+            self.city = address_generator['cidade']
+            self.state = address_generator['uf']
+
         if re.search(r'[^0-9]', self.cep) or len(self.cep) < 8:
-            error_msgs['cep'] = 'invalid CEP, type all and only numbers'
+            error_msgs['cep'] = 'invalid CEP, type only numbers (8 numbers, example: 01001001).'
 
         if error_msgs:
             raise ValidationError(error_msgs)

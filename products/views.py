@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from profiles.models import Address, Profile
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
@@ -205,7 +206,32 @@ class Checkout(View):
         context = {
             'user': self.request.user,
             'cart': self.request.session['cart'],
+            'addresses': self.address,
             'first_address': first_address,
         }
 
         return render(self.request, 'products/checkout.html', context)
+
+
+def get_checkoutaddress(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            request.profile = Profile.objects.filter(
+                user=request.user).first()
+            request.address = Address.objects.filter(
+                user=request.profile).all()
+
+            address_id = request.GET['inputSelect']
+
+            address = request.address.filter(id=address_id).first()
+            shipping = {
+                'address': address.address,
+                'complement': address.complement,
+                'city': address.city,
+                'cep': address.cep,
+                'number': address.number,
+                'neighborhood': address.neighborhood,
+                'state': address.state,
+            }
+
+            return JsonResponse(shipping)

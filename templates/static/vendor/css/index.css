@@ -223,17 +223,21 @@ nav.nav-header .nav-header-flex img {
     width: 90px;
 }
 
-.button-table {
+.button-table-start {
+    text-align: start;
+}
+
+.button-table-end {
     text-align: end;
 }
 
-input[type="text"]:disabled {
+input[type="text"]:read-only {
     background: rgb(180, 180, 180);
     color: black;
 }
 
 .mb-button-cep {
-    margin-bottom: 7px;
+    margin: 31.5px auto;
 }
 
 .profile-btn {
@@ -284,6 +288,13 @@ nav.nav-header div.search-item .cart-draw {
 
 nav.nav-header div.search-item .form-control {
     width: 400px;
+}
+
+@media (max-width: 600px) {
+    .mb-button-cep {
+        margin: 0;
+    }
+
 }
 
 @media (max-width: 600px) {

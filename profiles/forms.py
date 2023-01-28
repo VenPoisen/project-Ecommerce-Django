@@ -1,14 +1,18 @@
+from utils import addressgenerator
 from django import forms
 from django.contrib.auth.models import User
 from datetime import date
 from . import models
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Fieldset, Submit, Row, Column, Button
+
 
 today = date.today()
 
 
 class ProfileForm(forms.ModelForm):
-    birth_date = forms.DateField(widget=forms.TextInput(
-        attrs={'value': today, 'type': 'date'}), required=True)
+    birth_date = forms.DateField(widget=forms.DateInput(
+        attrs={'type': 'date', 'max': today}), required=True)
 
     class Meta:
         model = models.Profile
@@ -17,12 +21,47 @@ class ProfileForm(forms.ModelForm):
 
 
 class AddressForm(forms.ModelForm):
-    complement = forms.CharField(required=False)
-
     class Meta:
         model = models.Address
         fields = '__all__'
         exclude = ('user',)
+
+    address = forms.CharField(
+        max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    number = forms.CharField(max_length=8, required=False)
+    complement = forms.CharField(required=False)
+    neighborhood = forms.CharField(
+        max_length=30, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    city = forms.CharField(max_length=30, widget=forms.TextInput(
+        attrs={'readonly': 'readonly'}))
+    state = forms.CharField(max_length=2, widget=forms.TextInput(
+        attrs={'readonly': 'readonly'}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(Fieldset(
+            "Use this form to Update your address.",
+            Row(
+                Column('cep', css_class='col-md-10'),
+                Column(Button(
+                    'submit', 'Find CEP', css_class='btn main-color col-md-auto mb-button-cep btn-md', onclick='getCEP()',
+                )),
+                css_class=' justify-content-between'
+            ),
+            'address',
+            'number',
+            'complement',
+            'neighborhood',
+            'city',
+            'state',
+        ),
+            Submit('submit', 'Update',
+                   css_class='btn btn-danger main-color btn-block btn-lg')
+        )
+
+    field_order = ['cep',]
 
 
 class UserForm(forms.ModelForm):
