@@ -16,6 +16,21 @@
             <div class="col-lg-2 font-weight-bold">Status:</div>
             <div class="col-lg-4">{{order.get_status_display}}</div>
         </div>
+        <p class="lead mt-3">Shipping Address</p>
+        <div class="row mt-3">
+            <div class="col-lg-2 font-weight-bold">Address:</div>
+            <div class="col-lg-4">{{address.address}}</div>
+            <div class="col-lg-2 font-weight-bold">Number:</div>
+            <div class="col-lg-4">{{address.number}}</div>
+            {% if address.complement %}
+            <div class="col-lg-2 font-weight-bold">Complement:</div>
+            <div class="col-lg-4">{{address.complement}}</div>
+            {% endif %}
+            <div class="col-lg-2 font-weight-bold">City:</div>
+            <div class="col-lg-4">{{address.city}}</div>
+            <div class="col-lg-2 font-weight-bold">cep:</div>
+            <div class="col-lg-4">{{address.cep}}</div>
+        </div>
 
         <div class="row mt-4">
             <div class="col">

@@ -35,7 +35,7 @@
                 <div class="col-sm-3">
                     <select class="custom-select " id="inputSelect" name="addressSelected" onchange="inputSelector()"
                         data-width="auto">
-                        <option value="" id='empty-address' disabled selected>Select an option</option>
+                        <option value="" id='empty-address' disabled selected>Select an Address</option>
                         {% for address in addresses %}
                         <option value="{{address.id}}">{{address.address}}</option>
                         {% endfor %}
