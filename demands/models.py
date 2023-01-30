@@ -43,3 +43,20 @@ class ItemDemand(models.Model):
     class Meta:
         verbose_name = 'Order Item'
         verbose_name_plural = 'Order Items'
+
+
+class AddressDemand(models.Model):
+    order = models.ForeignKey(Demand, on_delete=models.CASCADE)
+    address_id = models.PositiveIntegerField()
+    address = models.CharField(max_length=50)
+    number = models.CharField(max_length=8, blank=True, null=True)
+    complement = models.CharField(max_length=30, blank=True, null=True)
+    city = models.CharField(max_length=30)
+    cep = models.CharField(max_length=8)
+
+    def __str__(self):
+        return self.address
+
+    class Meta:
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
