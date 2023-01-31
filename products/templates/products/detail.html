@@ -46,7 +46,14 @@
 
                                 {% for variation in product.variation_set.all %}
 
-                                {% if variation.promo_price %}
+                                {% if not variation.stock %}
+
+                                <option data-price-promo="{{ variation.price|price_format }}" value="{{ variation.id }}"
+                                    id="insufficient-stock">
+                                    {{variation}}
+                                </option>
+
+                                {% elif variation.promo_price %}
 
                                 <option data-price="{{ variation.price|price_format }}"
                                     data-price-promo="{{ variation.promo_price|price_format }}"
@@ -55,19 +62,20 @@
                                 </option>
 
                                 {% else %}
+
                                 <option data-price-promo="{{ variation.price|price_format }}"
                                     value="{{ variation.id }}">
                                     {{variation}}
                                 </option>
 
                                 {% endif %}
-
                                 {%endfor%}
                             </select>
+                            <span id="product-not-avaiable"></span>
                         </div>
 
                         <div class="text-left">
-                            <button type="submit" class="btn main-color btn-lg btn-block">
+                            <button type="submit" class="btn main-color btn-lg btn-block" id="add-cart-button">
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 Add to Cart
                             </button>
