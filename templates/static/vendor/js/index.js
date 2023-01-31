@@ -95,6 +95,9 @@ function inputSelector() {
                 city = document.getElementById("g-city");
                 state = document.getElementById("g-state");
                 cep = document.getElementById("g-cep");
+                shipping_price = document.getElementById("shipping-price");
+                cart_total = document.getElementById("cart-total");
+
 
                 address.innerHTML = data.address;
                 number.innerHTML = data.number;
@@ -103,6 +106,8 @@ function inputSelector() {
                 city.innerHTML = data.city;
                 state.innerHTML = data.state;
                 cep.innerHTML = data.cep;
+                shipping_price.innerHTML = data.shipping_price_formatted;
+                cart_total.innerHTML = data.cart_total;
             }
         }
     })

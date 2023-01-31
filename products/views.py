@@ -1,3 +1,5 @@
+from utils.utils import price_format, cart_totals
+from utils import shippingcalculator
 from django.http import JsonResponse
 from profiles.models import Address, Profile
 from django.shortcuts import render, redirect, get_object_or_404
@@ -224,6 +226,14 @@ def get_checkoutaddress(request, *args, **kwargs):
             address_id = request.GET['inputSelect']
 
             address = request.address.filter(id=address_id).first()
+
+            shipping_price = shippingcalculator.calculator(address.cep)
+            shipping_price_formatted = price_format(shipping_price)
+
+            cart = cart_totals(request.session['cart'])
+            sum_cart = shipping_price + cart
+            sum_cart_formatted = price_format(sum_cart)
+
             shipping = {
                 'address': address.address,
                 'complement': address.complement,
@@ -232,6 +242,8 @@ def get_checkoutaddress(request, *args, **kwargs):
                 'number': address.number,
                 'neighborhood': address.neighborhood,
                 'state': address.state,
+                'shipping_price_formatted': shipping_price_formatted,
+                'cart_total': sum_cart_formatted,
             }
 
             return JsonResponse(shipping)

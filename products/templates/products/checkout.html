@@ -43,25 +43,34 @@
                 </div>
             </div>
 
-            <dl class="row d-none mt-3" id="displayInput">
-                <dt class="col-lg-2">Address:</dt>
-                <dd class="col-lg-4" id="g-address"></dd>
-                <dt class="col-lg-2">Number:</dt>
-                <dd class="col-lg-4" id="g-number"></dd>
+            <div class="d-none" id="displayInput">
+                <dl class="row mt-3">
+                    <dt class="col-lg-2">Address:</dt>
+                    <dd class="col-lg-4" id="g-address"></dd>
+                    <dt class="col-lg-2">Number:</dt>
+                    <dd class="col-lg-4" id="g-number"></dd>
 
-                <dt class="col-lg-2">Complement:</dt>
-                <dd class="col-lg-4" id="g-complement"></dd>
-                <dt class="col-lg-2">Neighborhood:</dt>
-                <dd class="col-lg-4" id="g-neighborhood"></dd>
+                    <dt class="col-lg-2">Complement:</dt>
+                    <dd class="col-lg-4" id="g-complement"></dd>
+                    <dt class="col-lg-2">Neighborhood:</dt>
+                    <dd class="col-lg-4" id="g-neighborhood"></dd>
 
-                <dt class="col-lg-2">City:</dt>
-                <dd class="col-lg-4" id="g-city"></dd>
-                <dt class="col-lg-2">State:</dt>
-                <dd class="col-lg-4" id="g-state"></dd>
+                    <dt class="col-lg-2">City:</dt>
+                    <dd class="col-lg-4" id="g-city"></dd>
+                    <dt class="col-lg-2">State:</dt>
+                    <dd class="col-lg-4" id="g-state"></dd>
 
-                <dt class="col-lg-2">CEP:</dt>
-                <dd class="col-lg-4" id="g-cep"></dd>
-            </dl>
+                    <dt class="col-lg-2">CEP:</dt>
+                    <dd class="col-lg-4" id="g-cep"></dd>
+                </dl>
+
+                <p class="lead">Shipping price</p>
+                <dl class="row mt-3">
+                    <dt class="col-lg-2">Delivery price:</dt>
+                    <dd class="col-lg-4" id="shipping-price"></dd>
+                </dl>
+
+            </div>
         </div>
     </div>
 
@@ -75,7 +84,9 @@
 
     <div class="row mt-3">
         <div class="col">
-            <p class="lead text-center"><span class="font-weight-bold">TOTAL: </span> {{cart|cart_totals|price_format}}
+            <p class="lead text-center">
+                <span class="font-weight-bold">TOTAL: </span>
+                <span id="cart-total">{{cart|cart_totals|price_format}}</span>
             </p>
         </div>
     </div>
