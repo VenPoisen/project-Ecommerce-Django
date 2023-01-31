@@ -1,3 +1,4 @@
+from utils.shippingcalculator import calculator
 from profiles.models import Address
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, DetailView
@@ -95,15 +96,19 @@ class SaveOrder(View):
             qty_total_cart = utils.cart_total_qty(cart)
             value_total_cart = utils.cart_totals(cart)
 
+            shipping_address = Address.objects.filter(id=address_pk).first()
+            shipping_price = calculator(shipping_address.cep)
+            total_cart_shipping = value_total_cart + shipping_price
+
             order = Demand(
                 user=self.request.user,
                 total=value_total_cart,
+                shipping_price=shipping_price,
+                total_w_shipping=total_cart_shipping,
                 total_qty=qty_total_cart,
                 status='C',
             )
             order.save()
-
-            shipping_address = Address.objects.filter(id=address_pk).first()
 
             AddressDemand.objects.bulk_create(
                 [

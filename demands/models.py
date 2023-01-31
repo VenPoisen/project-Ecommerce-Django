@@ -8,6 +8,8 @@ import os
 class Demand(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.FloatField()
+    shipping_price = models.FloatField()
+    total_w_shipping = models.FloatField()
     total_qty = models.PositiveIntegerField()
     status = models.CharField(
         default='C',

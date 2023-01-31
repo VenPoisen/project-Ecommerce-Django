@@ -14,6 +14,7 @@ class VariationInline(admin.TabularInline):
 class VariationAdmin(admin.ModelAdmin):
     list_display = ('product', 'name', 'price', 'promo_price', 'stock')
     list_filter = ('product',)
+    list_editable = ('stock',)
 
 
 class ProductAdmin(admin.ModelAdmin):

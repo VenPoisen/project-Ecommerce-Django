@@ -8,8 +8,10 @@
         <div class="row mt-4">
             <div class="col-lg-2 font-weight-bold">Order number:</div>
             <div class="col-lg-4">{{order.id}}</div>
+            <div class="col-lg-2 font-weight-bold">Shipping price:</div>
+            <div class="col-lg-4">{{order.shipping_price|price_format}}</div>
             <div class="col-lg-2 font-weight-bold">Total payment:</div>
-            <div class="col-lg-4">{{order.total|price_format}}</div>
+            <div class="col-lg-4">{{order.total_w_shipping|price_format}}</div>
 
             <div class="col-lg-2 font-weight-bold">Qty Items:</div>
             <div class="col-lg-4">{{order.total_qty}}</div>
