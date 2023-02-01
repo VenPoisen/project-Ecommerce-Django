@@ -56,6 +56,7 @@ class AddToCart(View):
             reverse('products:list')
         )
         variation_id = self.request.GET.get('vid')
+        variation_quantity_add = self.request.GET.get('qty')
 
         if not variation_id:
             messages.error(
@@ -95,22 +96,31 @@ class AddToCart(View):
 
         cart = self.request.session['cart']
 
+        error_msg_stock = f'Insufficient stock for "{product_name} {variation.name}". There is only {stock_variation} in stock.'
+
         if variation_id in cart:
             cart_quantity = cart[variation_id]['quantity']
-            cart_quantity += 1
+            cart_quantity += int(variation_quantity_add)
 
             if stock_variation < cart_quantity:
                 messages.warning(
                     self.request,
-                    f'Insufficient stock for {cart_quantity}x in product "{product_name}". Added {stock_variation}x in cart.'
+                    error_msg_stock
                 )
-                cart_quantity = stock_variation
+                return redirect(http_referer)
 
             cart[variation_id]['quantity'] = cart_quantity
             cart[variation_id]['quantitative_price'] = unit_price * cart_quantity
             cart[variation_id]['promo_quantitative_price'] = promo_unit_price * cart_quantity
 
         else:
+            if stock_variation < int(variation_quantity_add):
+                messages.warning(
+                    self.request,
+                    error_msg_stock
+                )
+                return redirect(http_referer)
+
             cart[variation_id] = {
                 'product_id': product_id,
                 'product_name': product_name,
@@ -120,7 +130,7 @@ class AddToCart(View):
                 'promo_unit_price': promo_unit_price,
                 'quantitative_price': unit_price,
                 'promo_quantitative_price': promo_unit_price,
-                'quantity': 1,
+                'quantity': int(variation_quantity_add),
                 'slug': slug,
                 'image': image,
             }
@@ -129,7 +139,7 @@ class AddToCart(View):
 
         messages.success(
             self.request,
-            f'Product {product.name} {variation.name} add to cart {cart[variation_id]["quantity"]}x.'
+            f'Added {variation_quantity_add}x "{product.name} {variation.name}" to cart.'
         )
 
         return redirect(http_referer)

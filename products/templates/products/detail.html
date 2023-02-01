@@ -45,11 +45,10 @@
                             <select id="select-variations" name="vid" class="form-control form-control-lg">
 
                                 {% for variation in product.variation_set.all %}
-
                                 {% if not variation.stock %}
 
                                 <option data-price-promo="{{ variation.price|price_format }}" value="{{ variation.id }}"
-                                    id="insufficient-stock">
+                                    id="insufficient-stock" stock="{{variation.stock}}">
                                     {{variation}}
                                 </option>
 
@@ -57,14 +56,14 @@
 
                                 <option data-price="{{ variation.price|price_format }}"
                                     data-price-promo="{{ variation.promo_price|price_format }}"
-                                    value="{{ variation.id }}">
+                                    value="{{ variation.id }}" stock="{{variation.stock}}">
                                     {{variation}}
                                 </option>
 
                                 {% else %}
 
-                                <option data-price-promo="{{ variation.price|price_format }}"
-                                    value="{{ variation.id }}">
+                                <option data-price-promo="{{ variation.price|price_format }}" value="{{ variation.id }}"
+                                    stock="{{variation.stock}}">
                                     {{variation}}
                                 </option>
 
@@ -72,6 +71,12 @@
                                 {%endfor%}
                             </select>
                             <span id="product-not-avaiable"></span>
+                            <div class="row mt-3" id="qty_avaiable">
+                                <p class="col offset-md-5 text-right">Select Quantity:</p>
+                                <select class="form-control form-control-lg col-2 mr-3" id="select-quantities"
+                                    name="qty">
+                                </select>
+                            </div>
                         </div>
 
                         <div class="text-left">
