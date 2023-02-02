@@ -6,8 +6,32 @@ body.unified-content {
     justify-content: space-between;
 }
 
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
 body main {
     max-width: 1300px;
+}
+
+#delete-qty {
+    width: 50px;
+}
+
+#btn-delete-div {
+    max-width: 105px;
+    min-width: 105px;
+}
+
+#button-delete-item {
+    max-height: 31px;
+}
+
+#button-delete-item svg {
+    vertical-align: text-top;
+
 }
 
 .grid-card {

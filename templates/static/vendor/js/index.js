@@ -113,3 +113,14 @@ function inputSelector() {
     })
 
 }
+
+function changeIconColor() {
+    icon = document.getElementsByName('icon-delete-x');
+    for (const i of icon) {
+        i.classList.remove("text-danger");
+    }
+};
+
+function clickIcon() {
+    document.getElementById('button-delete-item').click();
+}

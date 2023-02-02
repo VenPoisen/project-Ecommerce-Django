@@ -145,6 +145,7 @@ class AddToCart(View):
         return redirect(http_referer)
 
 
+# TODO: adicionar ao carrinho na hora de remover a quantidade desejada para remover
 class RemoveFromCart(View):
     def get(self, *args, **kwargs):
         http_referer = self.request.META.get(
@@ -162,14 +163,18 @@ class RemoveFromCart(View):
         if variation_id not in self.request.session['cart']:
             return redirect(http_referer)
 
+        delete_qty = self.request.GET.get('del-qty')
         cart = self.request.session['cart'][variation_id]
+
+        cart['quantity'] -= int(delete_qty)
+        if cart['quantity'] < 1:
+            del self.request.session['cart'][variation_id]
 
         messages.info(
             self.request,
-            f'{cart["product_name"]} {cart["variation_name"]} removed from cart.'
+            f'{delete_qty}x {cart["product_name"]} {cart["variation_name"]} removed from cart.'
         )
 
-        del self.request.session['cart'][variation_id]
         self.request.session.save()
 
         return redirect(http_referer)

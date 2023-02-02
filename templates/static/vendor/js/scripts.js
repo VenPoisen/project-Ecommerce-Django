@@ -5,7 +5,7 @@
     add_cart_btn = document.getElementById('add-cart-button');
     error_msg = document.getElementById('product-not-avaiable');
     qty_selector = document.getElementById('select-quantities');
-    qty_avaiable = document.getElementById('qty_avaiable')
+    qty_avaiable = document.getElementById('qty_avaiable');
 
     if (!select_variation) {
         return;
@@ -98,3 +98,28 @@
     })
 })();
 
+(function () {
+    del_qty = document.getElementsByName('del-qty');
+    item_qty = document.getElementsByName('item-qty');
+
+    if (!del_qty) {
+        return;
+    }
+
+    if (!item_qty) {
+        return;
+    }
+    else {
+        for (var i = 0; i < item_qty.length; i++) {
+            qty_items_cart = item_qty[i].getAttribute('itemsQTY');
+
+            for (var x = 1; x <= qty_items_cart; x++) {
+                var opt = document.createElement('option');
+                opt.value = x;
+                opt.innerHTML = x;
+                del_qty[i].appendChild(opt);
+            }
+        }
+    }
+
+})();
