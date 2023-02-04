@@ -14,7 +14,7 @@
         </tr>
 
         {% for line in cart.values %}
-        <form action="{%url 'products:removecart'%}" method="get">
+        <form action="{%url 'products:removecart'%}" method="get" id="delete-form">
             <input type="hidden" name="vid" value="{{line.variation_id}}">
             <tr>
                 <td class="d-none d-sm-block">
@@ -38,18 +38,16 @@
                 <td itemsQTY="{{line.quantity}}" name="item-qty">{{line.quantity}}x</td>
 
                 {% if line.promo_quantitative_price %}
-                <td>{{line.promo_quantitative_price|price_format}}</td>
+                <td class="price-format-size">{{line.promo_quantitative_price|price_format}}</td>
                 {% else %}
-                <td>{{line.quantitative_price|price_format}}</td>
+                <td class="price-format-size">{{line.quantitative_price|price_format}}</td>
                 {% endif %}
                 <td>
                     <div class="row justify-content-around" id="btn-delete-div">
                         <select name="del-qty" id="delete-qty" class="form-control-sm"></select>
-                        <button type="submit" class="btn btn-outline-danger" id="button-delete-item"
-                            onmouseover="changeIconColor()">
-                            <!-- TODO: quando abre o html o <i> muda para <svg> e ai perde todas as classes e atrr. Tem q achar um jeito de poder clicar no icon p executar o botao -->
+                        <div class="btn btn-outline-danger" id="button-delete-item">
                             <i class="fa fa-trash" name="icon-delete-x" onclick="clickIcon()"></i>
-                        </button>
+                        </div>
                     </div>
                 </td>
             </tr>

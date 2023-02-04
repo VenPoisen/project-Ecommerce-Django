@@ -31,7 +31,14 @@ body main {
 
 #button-delete-item svg {
     vertical-align: text-top;
+}
 
+#button-delete-item:hover {
+    cursor: pointer;
+}
+
+.price-format-size {
+    min-width: 85px;
 }
 
 .grid-card {
@@ -141,7 +148,7 @@ nav#menu.menu li a:hover {
 
 nav li .intern-menu {
     position: absolute;
-    top: 110px;
+    top: 210px;
     right: -250px;
     min-width: 250px;
     background-color: crimson;

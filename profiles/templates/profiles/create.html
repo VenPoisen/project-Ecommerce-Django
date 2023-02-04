@@ -8,7 +8,7 @@
 <div class="row">
 
   {% if not request.user.is_authenticated %}
-  <div class="col-lg">
+  <div id="login-form" class="col-lg">
     <h3>Login</h3>
 
     <form method='POST' action="{% url 'profiles:login' %}">
@@ -42,13 +42,13 @@
       <button type="submit" class="btn main-color btn-block mb-4">Sign in</button>
 
       <div class="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
+        <p>Not a member? <a href="#!" onclick="clickRegister()">Register</a></p>
       </div>
     </form>
   </div>
   {% endif %}
 
-  <div class="col-lg-6 m-auto">
+  <div id="register-form" class="col-lg-6 m-auto d-none">
 
     {% block updatetitle %}
     <h3>Register</h3>

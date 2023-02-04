@@ -27,15 +27,18 @@
                             Home
                         </a>
                     </li>
-                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Tecnology</a></li>
+                    <li><a href="#">Furnitures</a></li>
+                    <li><a href="#">Clothes</a></li>
                     <li onmouseover="dropRight()" onmouseout="dropRight()">
                         <a href="#" role="button" data-toggle="dropdown">
-                            DropRight</a>
+                            Categories</a>
                         <div class="intern-menu second-color" id="navbarDropleft">
-                            <a href="#">Action</a>
-                            <a href="#">Another action</a>
+                            <a href="{% url 'orders:list' %}">My Orders</a>
+                            <a href="{% url 'profiles:create' %}">Update Profile</a>
+                            <a href="{% url 'profiles:address' %}">Update Address</a>
                             <div class="dropdown-divider"></div>
-                            <a href="#">Something else here</a>
+                            <a href="{% url 'profiles:logout' %}">Logout</a>
                         </div>
                     </li>
                     <li>
@@ -72,6 +75,7 @@
                         <div class="profile-intern-menu second-color" id="profileDropDown">
                             <a href="{% url 'orders:list' %}">My Orders</a>
                             <a href="{% url 'profiles:create' %}">Update Profile</a>
+                            <a href="{% url 'profiles:address' %}">Update Address</a>
                             <div class="dropdown-divider"></div>
                             <a href="{% url 'profiles:logout' %}">Logout</a>
                         </div>

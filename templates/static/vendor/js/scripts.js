@@ -123,3 +123,38 @@
     }
 
 })();
+
+(function () {
+    myForm = document.getElementById('delete-form')
+    btn_icon = document.getElementById('button-delete-item');
+
+    if (!myForm) {
+        return;
+    }
+    if (!btn_icon) {
+        return;
+    }
+    else {
+        btn_icon.addEventListener('click', function () {
+            myForm.submit();
+        })
+    }
+})();
+
+(function () {
+    login_form = document.getElementById('login-form');
+    register_form = document.getElementById('register-form');
+
+    if (!login_form) {
+        if (!register_form) {
+            return;
+        }
+        else {
+            document.getElementById('register-form').classList.remove('d-none');
+        }
+    }
+
+    if (!register_form) {
+        return;
+    }
+})();

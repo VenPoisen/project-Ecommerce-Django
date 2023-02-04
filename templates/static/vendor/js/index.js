@@ -121,6 +121,6 @@ function changeIconColor() {
     }
 };
 
-function clickIcon() {
-    document.getElementById('button-delete-item').click();
+function clickRegister() {
+    document.getElementById('register-form').classList.remove('d-none');
 }
