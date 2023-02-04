@@ -33,7 +33,8 @@ body main {
     vertical-align: text-top;
 }
 
-#button-delete-item:hover {
+#button-delete-item:hover,
+#cep-calculator-cart #btn-cep-finder:hover {
     cursor: pointer;
 }
 
@@ -306,6 +307,10 @@ input[type="text"]:read-only {
 
 .profile-intern-menu a:hover {
     background-color: rgba(220, 20, 60, 0.3);
+}
+
+#cep-calculator-cart div label {
+    min-width: 110px;
 }
 
 nav.nav-header div.search-item {

@@ -1,16 +1,18 @@
+from crispy_forms.templatetags.crispy_forms_filters import as_crispy_field
 from utils.utils import price_format, cart_totals
 from utils import shippingcalculator
-from django.http import JsonResponse
+from utils import addressgenerator
+from django.http import JsonResponse, HttpResponse
 from profiles.models import Address, Profile
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse
 from django.views import View
-from django.http import HttpResponse
 from django.contrib import messages
 from django.db.models import Q
 from . import models
+from profiles.forms import CEPForm
 
 
 class ProductList(ListView):
@@ -183,7 +185,8 @@ class RemoveFromCart(View):
 class Cart(View):
     def get(self, *args, **kwargs):
         context = {
-            'cart': self.request.session.get('cart', {})
+            'cart': self.request.session.get('cart', {}),
+            'address': CEPForm,
         }
 
         return render(self.request, 'products/cart.html', context)
@@ -262,3 +265,23 @@ def get_checkoutaddress(request, *args, **kwargs):
             }
 
             return JsonResponse(shipping)
+
+
+def get_cart_cep_price(request, *args, **kwargs):
+    if request.method == 'GET':
+        cep_number = request.GET['inputSelect']
+
+        if not cep_number:
+            return JsonResponse({"price": "false"})
+
+        valid_cep = addressgenerator.address(cep_number)
+        if not valid_cep:
+            return JsonResponse({"price": "false"})
+
+        shipping_price = shippingcalculator.calculator(cep_number)
+        shipping_price_formatted = price_format(shipping_price)
+        shipping = {
+            'shipping_price_formatted': shipping_price_formatted,
+            "price": "true",
+        }
+        return JsonResponse(shipping)

@@ -111,7 +111,34 @@ function inputSelector() {
             }
         }
     })
+}
 
+function cepCartCalculate() {
+    $.ajax({
+        type: 'GET',
+        url: 'getcep/',
+        data: {
+            inputSelect: $("#id_cep").val(),
+        },
+        success: function (data) {
+            $("#btn-cep-finder").css("cursor", "wait");
+            valid_cep = data.price;
+
+            if (valid_cep == 'true') {
+                price = document.getElementById('cep-finder-price');
+                price.innerHTML = data.shipping_price_formatted;
+
+                document.getElementById('cep-results-cart').classList.remove('d-none');
+            }
+            if (valid_cep == 'false') {
+                document.getElementById('cep-results-cart').classList.add('d-none');
+            }
+
+            setTimeout(function () {
+                $("#btn-cep-finder").css("cursor", "pointer");
+            }, 300);
+        }
+    })
 }
 
 function changeIconColor() {

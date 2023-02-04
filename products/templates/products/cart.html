@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load vnpfilters %}
+{% load crispy_forms_tags %}
 
 {% block title %}Cart | {% endblock %}
 
@@ -17,6 +18,21 @@
     </div>
 </div>
 
+<form action="" method="get">
+    <p class='lead mt-3'>Calculate shipping price</p>
+    <div class="container m-0" id="cep-calculator-cart">
+        <div class="row justify-content-start">
+            <label class="col-1 pt-2 text-right" for="cep-finder">Enter CEP:</label>
+            <div class="col-2" id="cep-finder">{{address.cep|as_crispy_field}}</div>
+            <div class="col-1 h-50 btn btn-outline-danger" id="btn-cep-finder" onclick="cepCartCalculate()">Calculate
+            </div>
+        </div>
+        <div class="row d-none" id="cep-results-cart">
+            <label class="col-1 text-right" for="cep-finder-price">Price:</label>
+            <div id='cep-finder-price' class="col"></div>
+        </div>
+    </div>
+</form>
 
 <div class="row mt-3">
     <div class="col-lg text-white">

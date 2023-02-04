@@ -64,6 +64,19 @@ class AddressForm(forms.ModelForm):
     field_order = ['cep',]
 
 
+class CEPForm(forms.ModelForm):
+    class Meta:
+        model = models.Address
+        fields = '__all__'
+        exclude = ('user',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(
         required=False,
