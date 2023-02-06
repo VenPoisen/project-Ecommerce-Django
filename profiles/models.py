@@ -8,7 +8,6 @@ import re
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    age = models.PositiveIntegerField()
     birth_date = models.DateField()
     cpf = models.CharField(max_length=11, help_text='CPF only numbers')
 
