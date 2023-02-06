@@ -125,19 +125,25 @@
 })();
 
 (function () {
-    myForm = document.getElementById('delete-form')
-    btn_icon = document.getElementById('button-delete-item');
+    myForm = document.getElementsByName('delete-form');
+    btn_icon = document.getElementsByName('button-delete-item');
 
     if (!myForm) {
         return;
     }
+
     if (!btn_icon) {
         return;
     }
     else {
-        btn_icon.addEventListener('click', function () {
-            myForm.submit();
-        })
+        btn_icon_arr = Array.prototype.slice.call(btn_icon);
+
+        for (const x of btn_icon) {
+            x.addEventListener('click', function () {
+                index_btn_icon = btn_icon_arr.indexOf(x);
+                myForm[index_btn_icon].submit();
+            })
+        }
     }
 })();
 

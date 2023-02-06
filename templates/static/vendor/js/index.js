@@ -123,14 +123,17 @@ function cepCartCalculate() {
         success: function (data) {
             $("#btn-cep-finder").css("cursor", "wait");
             valid_cep = data.price;
+            error_msg = document.getElementById('error_msg_price');
 
             if (valid_cep == 'true') {
+                error_msg.innerHTML = '';
                 price = document.getElementById('cep-finder-price');
                 price.innerHTML = data.shipping_price_formatted;
 
                 document.getElementById('cep-results-cart').classList.remove('d-none');
             }
             if (valid_cep == 'false') {
+                error_msg.innerHTML = 'Invalid CEP!';
                 document.getElementById('cep-results-cart').classList.add('d-none');
             }
 

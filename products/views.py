@@ -147,7 +147,6 @@ class AddToCart(View):
         return redirect(http_referer)
 
 
-# TODO: adicionar ao carrinho na hora de remover a quantidade desejada para remover
 class RemoveFromCart(View):
     def get(self, *args, **kwargs):
         http_referer = self.request.META.get(

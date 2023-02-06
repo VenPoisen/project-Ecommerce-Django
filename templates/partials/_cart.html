@@ -14,7 +14,7 @@
         </tr>
 
         {% for line in cart.values %}
-        <form action="{%url 'products:removecart'%}" method="get" id="delete-form">
+        <form action="{%url 'products:removecart'%}" method="get" name="delete-form">
             <input type="hidden" name="vid" value="{{line.variation_id}}">
             <tr>
                 <td class="d-none d-sm-block">
@@ -45,8 +45,8 @@
                 <td>
                     <div class="row justify-content-around" id="btn-delete-div">
                         <select name="del-qty" id="delete-qty" class="form-control-sm"></select>
-                        <div class="btn btn-outline-danger" id="button-delete-item">
-                            <i class="fa fa-trash" name="icon-delete-x" onclick="clickIcon()"></i>
+                        <div class="btn btn-outline-danger" name="button-delete-item" id="button-delete-item">
+                            <i class="fa fa-trash" name="icon-delete-x"></i>
                         </div>
                     </div>
                 </td>
