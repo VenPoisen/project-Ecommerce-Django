@@ -66,6 +66,13 @@ class BaseProfile(View):
 class Create(BaseProfile):
     def post(self, *args, **kwargs):
 
+        if (not self.userform.is_valid() or not self.profileform.is_valid()) and not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                'There are errors in the register form. Check if all fields have been filled correctly.'
+            )
+            return render(self.request, 'profiles/register.html', self.context)
+
         if not self.userform.is_valid() or not self.profileform.is_valid():
             messages.error(
                 self.request,
@@ -146,6 +153,10 @@ class Create(BaseProfile):
 
             if authentica:
                 login(self.request, user=user)
+                messages.info(
+                    self.request,
+                    'Please add your first address to your profile.'
+                )
                 return redirect('profiles:address')
         # TODO: em vez de redirecionar p um monte de lugar, criar um template do dashboard com os links?
         self.request.session['cart'] = self.cart
@@ -297,7 +308,7 @@ class AddressCreate(BaseProfile):
 
         messages.info(
             self.request,
-            'Your profile has been successfully created'
+            'Your address has been successfully created'
         )
 
         self.request.session['cart'] = self.cart

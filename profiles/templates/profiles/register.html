@@ -1,0 +1,34 @@
+{% extends 'profiles/create.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+
+    <div id="register-form" class="col-lg-6 m-auto">
+
+        {% block updatetitle %}
+        <h3>Register</h3>
+        {% endblock updatetitle %}
+
+        <form class='mt-4' id="update-cep" action="" method="post">
+            {% block updateform %}
+
+            {% csrf_token %}
+            {{ userform|crispy }}
+            {{ profileform|crispy }}
+
+            {% endblock updateform %}
+
+            {% block updatebutton %}
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class='btn main-color btn-block btn-lg'>Send</button>
+                </div>
+            </div>
+            {% endblock updatebutton %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}
