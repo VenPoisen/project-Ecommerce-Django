@@ -1,14 +1,9 @@
 {% load static %}
 {% load vnpfilters %}
 
-<div class="block-outside" id="block-outside" onclick="toggleMenu()"></div>
 <nav class="nav-header navbar navbar-dark main-color navbar-expand-lg">
     <div class="nav-header-width">
         <div class="nav-header-flex">
-            <a class="navbar-brand" href="{% url 'products:list' %}"> <img src="/static/android-chrome-192x192.png"
-                    alt="logo site image">
-            </a>
-
             <button class="button-border d-lg-none" type="button" onclick="toggleMenu()">
                 <div class="bars">
                     <div></div>
@@ -17,7 +12,12 @@
                 </div>
             </button>
 
-            <div id="toggleMenu" class="d-none d-lg-block" onclick="toggleMenu()">Categories</div>
+            <a class="navbar-brand" href="{% url 'products:list' %}"> <img src="/static/android-chrome-192x192.png"
+                    alt="logo site image">
+            </a>
+
+            <button id="toggleMenu" class="btn d-none d-lg-block btn-outline-danger text-white" type="button"
+                onclick="toggleMenu()">Categories</button>
 
             <nav id="menu" class="menu">
                 <div class="close-menu" onclick="toggleMenu()"></div>
@@ -30,6 +30,10 @@
                     <li><a href="#">Tecnology</a></li>
                     <li><a href="#">Furnitures</a></li>
                     <li><a href="#">Clothes</a></li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    {% if request.user.is_authenticated %}
                     <li onmouseover="dropRight()" onmouseout="dropRight()">
                         <a href="#" role="button" data-toggle="dropdown">
                             Profile</a>
@@ -41,9 +45,12 @@
                             <a href="{% url 'profiles:logout' %}">Logout</a>
                         </div>
                     </li>
+                    {% else %}
                     <li>
-                        <a class="disabled" href="#">Disabled</a>
+                        <a href="{% url 'profiles:create' %}">
+                            Login</a>
                     </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'products:cart' %}">
                             Cart
@@ -52,6 +59,26 @@
                 </ul>
             </nav>
 
+            <div class="flex-search">
+                <div class="row" onclick="toggleSearch()">
+                    <img data-src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                        src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                        alt class="img-fluid lazyloaded" width="24" height="24">
+                    <span class="d-none d-lg-block">Click here to search</span>
+                </div>
+                <form id="nav-search-form" class="row" method="get" action="{% url 'products:search' %}">
+                    <div id="nav-search-div">
+                        <img data-src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                            src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                            alt class="img-fluid lazyloaded" width="24" height="24">
+                        <input name="term" id="nav-search-input" value="{{ request.GET.term }}" class="form-control"
+                            type="search" placeholder="Type here what you are looking for" aria-label="Search">
+                        <button id="nav-search-btn" class="btn btn-size btn-danger text-white"
+                            type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+
             <div class="search-item">
                 {% if request.session.cart %}
                 <a class="cart-draw" href="{% url 'products:cart' %}">
@@ -59,38 +86,32 @@
                     <span class="fas fa-shopping-cart"></span>
                 </a>
                 {% endif %}
-                <div class="flex-search">
-
-                    <form class="form-inline" method="get" action="{% url 'products:search' %}">
-                        <input name="term" value="{{ request.GET.term }}" class="form-control mr-sm-3" type="search"
-                            placeholder="Search" aria-label="Search">
-                        <button class="btn btn-size second-color my-2 my-sm-0 text-white" type="submit">Search</button>
-                    </form>
-
-                    {% if request.user.is_authenticated %}
-                    <div class="mt-3 profile-btn" onmouseover="dropDown()" onmouseout="dropDown()">
-                        <button class='btn second-color btn-size' type="button">
-                            Profile &#9662
-                        </button>
-                        <div class="profile-intern-menu second-color" id="profileDropDown">
-                            <a href="{% url 'orders:list' %}">My Orders</a>
-                            <a href="{% url 'profiles:create' %}">Update Profile</a>
-                            <a href="{% url 'profiles:address' %}">Update Address</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="{% url 'profiles:logout' %}">Logout</a>
-                        </div>
-                    </div>
-
-                    {% else %}
-
-                    <button class='btn second-color btn-size mt-3 login-button' type="button">
-                        <a href="{% url 'profiles:create' %}">Login</a>
+                {% if request.user.is_authenticated %}
+                <div class="profile-btn" onmouseover="dropDown()" onmouseout="dropDown()">
+                    <button class='btn btn-outline-danger text-white btn-size' type="button">
+                        Profile &#9662
                     </button>
-
-                    {% endif %}
-
+                    <div class="profile-intern-menu main-color" id="profileDropDown">
+                        <a href="{% url 'orders:list' %}">My Orders</a>
+                        <a href="{% url 'profiles:create' %}">Update Profile</a>
+                        <a href="{% url 'profiles:address' %}">Update Address</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'profiles:logout' %}">Logout</a>
+                    </div>
                 </div>
+
+                {% else %}
+                <button id="nav-login" class="btn btn-outline-danger btn-size login-button" type="button">
+                    <a href="{% url 'profiles:create' %}">
+                        <i class="fa fa-user"></i>
+                        <span class="d-none d-lg-block ml-2">Login</span>
+                    </a>
+                </button>
+                {% endif %}
             </div>
+
         </div>
     </div>
 </nav>
+<div class="block-outside" id="block-outside" onclick="toggleMenu()"></div>
+<div class="block-outside" id="block-search" onclick="toggleSearch()"></div>

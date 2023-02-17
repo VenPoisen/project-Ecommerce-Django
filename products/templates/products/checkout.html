@@ -5,34 +5,32 @@
 
 {% block content %}
 <form action="{% url 'orders:saveorder' %}" method="get">
-    <div class="row mb-5">
-        <div class="col-lg">
+    <div class="row mb-5 text-color-two">
+        <div class="col-sm">
             <h2>Review your order</h2>
 
             <p class="lead mt-3">User details</p>
             <p>If you need to edit <a href="{% url 'profiles:create' %}">click here</a></p>
             <dl class="row">
-                <dt class="col-lg-2">Name:</dt>
-                <dd class="col-lg-4">{{user.first_name}}</dd>
-                <dt class="col-lg-2">Last name:</dt>
-                <dd class="col-lg-4">{{user.last_name}}</dd>
+                <dt class="col-sm-2">Name:</dt>
+                <dd class="col-sm-4">{{user.first_name}}</dd>
+                <dt class="col-sm-2">Last name:</dt>
+                <dd class="col-sm-4">{{user.last_name}}</dd>
 
-                <dt class="col-lg-2">Age:</dt>
-                <dd class="col-lg-4">{{user.profile.age}}</dd>
-                <dt class="col-lg-2">Birth date:</dt>
-                <dd class="col-lg-4">{{user.profile.birth_date}}</dd>
+                <dt class="col-sm-2">Birth date:</dt>
+                <dd class="col-sm-4">{{user.profile.birth_date}}</dd>
 
-                <dt class="col-lg-2">CPF:</dt>
-                <dd class="col-lg-4">{{user.profile.cpf}}</dd>
-                <dt class="col-lg-2">E-mail:</dt>
-                <dd class="col-lg-4">{{user.email}}</dd>
+                <dt class="col-sm-2">CPF:</dt>
+                <dd class="col-sm-4">{{user.profile.cpf}}</dd>
+                <dt class="col-sm-2">E-mail:</dt>
+                <dd class="col-sm-4">{{user.email}}</dd>
             </dl>
 
             <p class="lead mt-3">Shipping Address</p>
             <p>If you need to edit, <a href="{% url 'profiles:address' %}">click here</a></p>
 
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-4">
                     <select class="custom-select " id="inputSelect" name="addressSelected" onchange="inputSelector()"
                         data-width="auto">
                         <option value="" id='empty-address' disabled selected>Select an Address</option>
@@ -45,29 +43,29 @@
 
             <div class="d-none" id="displayInput">
                 <dl class="row mt-3">
-                    <dt class="col-lg-2">Address:</dt>
-                    <dd class="col-lg-4" id="g-address"></dd>
-                    <dt class="col-lg-2">Number:</dt>
-                    <dd class="col-lg-4" id="g-number"></dd>
+                    <dt class="col-sm-2">Address:</dt>
+                    <dd class="col-sm-4" id="g-address"></dd>
+                    <dt class="col-sm-2">Number:</dt>
+                    <dd class="col-sm-4" id="g-number"></dd>
 
-                    <dt class="col-lg-2">Complement:</dt>
-                    <dd class="col-lg-4" id="g-complement"></dd>
-                    <dt class="col-lg-2">Neighborhood:</dt>
-                    <dd class="col-lg-4" id="g-neighborhood"></dd>
+                    <dt class="col-sm-2">Complement:</dt>
+                    <dd class="col-sm-4" id="g-complement"></dd>
+                    <dt class="col-sm-2">Neighborhood:</dt>
+                    <dd class="col-sm-4" id="g-neighborhood"></dd>
 
-                    <dt class="col-lg-2">City:</dt>
-                    <dd class="col-lg-4" id="g-city"></dd>
-                    <dt class="col-lg-2">State:</dt>
-                    <dd class="col-lg-4" id="g-state"></dd>
+                    <dt class="col-sm-2">City:</dt>
+                    <dd class="col-sm-4" id="g-city"></dd>
+                    <dt class="col-sm-2">State:</dt>
+                    <dd class="col-sm-4" id="g-state"></dd>
 
-                    <dt class="col-lg-2">CEP:</dt>
-                    <dd class="col-lg-4" id="g-cep"></dd>
+                    <dt class="col-sm-2">CEP:</dt>
+                    <dd class="col-sm-4" id="g-cep"></dd>
                 </dl>
 
                 <p class="lead">Shipping price</p>
                 <dl class="row mt-3">
-                    <dt class="col-lg-2">Delivery price:</dt>
-                    <dd class="col-lg-4" id="shipping-price"></dd>
+                    <dt class="col-sm-2">Delivery price:</dt>
+                    <dd class="col-sm-4" id="shipping-price"></dd>
                 </dl>
 
             </div>
@@ -75,7 +73,7 @@
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col text-color-two">
             <p class="lead">Shopping cart</p>
 
             {% include 'partials/_cart.html' %}
@@ -84,7 +82,7 @@
 
     <div class="row mt-3">
         <div class="col">
-            <p class="lead text-center">
+            <p class="lead text-center text-color-two">
                 <span class="font-weight-bold">TOTAL: </span>
                 <span id="cart-total">{{cart|cart_totals|price_format}}</span>
             </p>
@@ -93,7 +91,7 @@
 
     <div class="row">
         <div class="col">
-            <button type="submit" class="btn main-color btn-lg btn-block">
+            <button type="submit" class="btn btn-danger btn-lg btn-block">
                 Place order and pay
             </button>
         </div>

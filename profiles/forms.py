@@ -46,7 +46,7 @@ class AddressForm(forms.ModelForm):
             Row(
                 Column('cep', css_class='col-md-10'),
                 Column(Button(
-                    'submit', 'Find CEP', css_class='btn main-color col-md-auto mb-button-cep btn-md', onclick='getCEP()',
+                    'submit', 'Find CEP', css_class='btn btn-danger text-white col-md-auto mb-button-cep btn-md', onclick='getCEP()',
                 )),
                 css_class=' justify-content-between'
             ),
@@ -58,7 +58,7 @@ class AddressForm(forms.ModelForm):
             'state',
         ),
             Submit('submit', 'Update',
-                   css_class='btn btn-danger main-color btn-block btn-lg')
+                   css_class='btn btn-danger text-white btn-block btn-lg')
         )
 
     field_order = ['cep',]

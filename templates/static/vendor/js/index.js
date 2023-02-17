@@ -2,6 +2,7 @@ var toggleStatus = 1;
 var dropStatus = 1;
 var dropDownStatus = 1;
 var favoriteStatus = 1;
+var toggleSearchStatus = 1;
 
 function dropRight() {
     if (dropStatus == 1 && toggleStatus == 0) {
@@ -23,9 +24,33 @@ function toggleMenu() {
     else if (toggleStatus == 0) {
         document.getElementById("menu").style.left = "-500px";
         document.getElementById("block-outside").style.display = "none";
-        document.getElementById("navbarDropleft").style.display = "none";
-        dropStatus = 1;
         toggleStatus = 1;
+    }
+};
+
+function toggleSearch() {
+    if (toggleSearchStatus == 1) {
+        document.getElementById("block-search").style.display = "block";
+        document.getElementById("nav-search-form").style.display = "block";
+        document.getElementById("nav-search-input").focus();
+        setTimeout(function () {
+            document.getElementById("nav-search-div").style.width = "100%";
+        }, 100);
+        setTimeout(function () {
+            document.getElementById("nav-search-btn").style.display = "block";
+        }, 400);
+        toggleSearchStatus = 0;
+    }
+    else if (toggleSearchStatus == 0) {
+        document.getElementById("nav-search-btn").style.display = "none";
+        setTimeout(function () {
+            document.getElementById("nav-search-div").style.width = "0";
+        }, 100);
+        setTimeout(function () {
+            document.getElementById("nav-search-form").style.display = "none";
+            document.getElementById("block-search").style.display = "none";
+        }, 400)
+        toggleSearchStatus = 1;
     }
 };
 

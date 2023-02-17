@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row text-color-two">
 
   {% if not request.user.is_authenticated %}
   <div id="login-form" class="col-lg">
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn main-color btn-block mb-4">Sign in</button>
+      <button type="submit" class="btn btn-danger btn-block mb-4 text-white">Login</button>
 
       <div class="text-center">
         <p>Not a member? <a href="#!" onclick="clickRegister()">Register</a></p>
@@ -66,7 +66,7 @@
       {% block updatebutton %}
       <div class="row">
         <div class="col">
-          <button type="submit" class='btn main-color btn-block btn-lg'>Send</button>
+          <button type="submit" class='btn btn-danger btn-block text-white'>Register</button>
         </div>
       </div>
       {% endblock updatebutton %}

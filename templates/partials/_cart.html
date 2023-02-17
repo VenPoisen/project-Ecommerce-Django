@@ -2,7 +2,7 @@
 {% load vnpfilters %}
 
 <div class="table-responsive">
-    <table class="table text-white">
+    <table class="table">
         <tr>
             <th class="d-none d-sm-block">Image</th>
             <th>Product</th>
@@ -23,7 +23,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class='text-white mr-4' href="{% url 'products:detail' line.slug %}">
+                    <a class='mr-4 text-dec' href="{% url 'products:detail' line.slug %}">
                         {{ line.product_name }}
                     </a>
                 </td>

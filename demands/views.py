@@ -25,7 +25,6 @@ class DispatchLoginRequired(View):
 
 class SaveOrder(View):
     template_name = 'orders/pay.html'
-    # TODO: adicionar calculo de frete
 
     def get(self, *args, **kwargs):
         if not self.request.user.is_authenticated:

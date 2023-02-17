@@ -5,13 +5,13 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row text-color-two">
     <div class="col">
         <h3 class="mb-4">Adresses from {{user}}</h3>
         <p>Here are all your addresses created</p>
 
         <div class="table-responsive">
-            <table class="table table-striped table-hover text-white address-table">
+            <table class="table table-striped table-hover address-table">
                 <thead>
                     <tr class="text-center">
                         <th scope="col"></th>
@@ -30,7 +30,7 @@
                     <tr class="text-center">
                         <td class="button-table-start">
                             <form action="{% url 'profiles:delete' address.id %}" method="get">
-                                <button type="submit" class="btn main-color ">
+                                <button type="submit" class="btn btn-danger text-white">
                                     Delete <input type="hidden" name="pk" value={{address.id}}>
                                 </button>
                             </form>
@@ -43,7 +43,7 @@
                         <td>{{address.state}}</td>
                         <td class="button-table-end">
                             <form action="{% url 'profiles:addressdetails' address.id %}" method="get">
-                                <button type="submit" class="btn main-color ">
+                                <button type="submit" class="btn main-color text-white">
                                     Edit <i class="fas fa-search-plus ml-2"></i>
                                 </button>
                             </form>
@@ -56,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col ">
-                <button type="button" class='btn new-address main-color mt-3 float-right'><a
+                <button type="button" class='btn new-address btn-danger mt-3 float-right'><a
                         href="{% url 'profiles:addresscreate' %}">+ New
                         Address</a></button>
             </div>

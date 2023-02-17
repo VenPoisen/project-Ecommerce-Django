@@ -1,5 +1,14 @@
+:root {
+    --main-color: #16324f;
+    --secondary-color: #E6E8E6;
+    --third-color: #dc3545;
+    --main-text-color: white;
+    --second-text-color: black;
+    --hover-color: rgba(220, 53, 70, 0.5);
+}
+
 body.unified-content {
-    background-color: rgb(17, 17, 78);
+    background-color: var(--secondary-color);
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -60,49 +69,67 @@ body main {
     text-align: center;
 }
 
-.main-color {
-    background-color: crimson;
-    color: white;
+.second-color {
+    background-color: var(--secondary-color);
+    color: var(--second-text-color);
 }
 
-.second-color {
-    background-color: rgb(17, 17, 68);
-    color: white;
+.main-color {
+    background-color: var(--main-color);
+    color: var(--main-text-color);
+}
+
+.third-color {
+    background-color: var(--third-color);
+}
+
+.text-color-two {
+    color: var(--second-text-color);
 }
 
 .nav-header a,
 .new-address a {
     text-decoration: none;
-    color: white;
+    color: var(--main-text-color);
 }
 
 .button-border {
     background-color: inherit;
     border-radius: 10%;
     border-style: solid;
-    border-color: white;
+    border-color: var(--main-text-color);
 }
 
 .button-border:focus {
     outline-style: solid;
     outline-width: 0.1px;
-    outline-color: white;
+    outline-color: var(--main-text-color);
+}
+
+#toggleMenu {
+    width: 20%;
 }
 
 .bars div {
     width: 35px;
     height: 3px;
-    background-color: white;
+    background-color: var(--main-text-color);
     margin: 7px 0;
 }
 
-div#block-outside.block-outside {
-    background-color: rgba(1, 1, 1, 0.5);
+div#block-outside.block-outside,
+div#block-search.block-outside {
     display: none;
     position: fixed;
     width: 100vw;
     height: 100vh;
     z-index: 50;
+    background-color: var(--main-color);
+    /* background-image: url('../../bgimage-here.svg'); */
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    opacity: 0.8
 }
 
 nav#menu.menu {
@@ -115,7 +142,7 @@ nav#menu.menu {
     bottom: 0;
     min-width: 250px;
     max-width: 500px;
-    background-color: crimson;
+    background-color: var(--main-color);
     z-index: 100;
 }
 
@@ -144,41 +171,80 @@ nav#menu.menu li a,
 
 
 nav#menu.menu li a:hover {
-    background-color: rgba(17, 17, 78, 0.2);
+    background-color: var(--hover-color);
 }
 
 nav li .intern-menu {
     position: absolute;
-    top: 210px;
+    top: 225px;
     right: -250px;
     min-width: 250px;
-    background-color: crimson;
+    background-color: var(--main-color);
     z-index: 110;
     display: none;
 }
 
-#menu .close-menu,
-#toggleMenu {
+#menu .close-menu {
     height: 40px;
     font-size: 20px;
-    color: white;
+    color: var(--main-text-color);
     text-align: center;
     cursor: pointer;
 }
 
+#nav-search-form {
+    display: none;
+    position: absolute;
+    top: 110%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    max-width: 1100px;
+    z-index: 100;
+}
+
+#nav-search-form div {
+    width: 0;
+}
+
+#nav-search-form input {
+    margin-left: 30px;
+    width: 90%;
+}
+
+#nav-search-form div img {
+    position: absolute;
+    top: 5px;
+    left: 0;
+}
+
+#nav-search-form div button {
+    position: absolute;
+    top: 0;
+    right: -15px;
+    display: none;
+}
+
+.text-dec:hover {
+    text-decoration: none;
+}
+
 div#block-outside.block-outside,
-div#toggleMenu,
+div#block-search.block-outside,
+button#toggleMenu,
 .button-border:hover,
 nav#menu.menu,
 nav#menu.menu .close-menu,
 nav#menu.menu li a:hover,
 nav#menu.menu li .intern-menu,
+#nav-search-div,
 .profile-intern-menu,
 .address-table tbody tr:hover {
     transition: all ease-in-out 300ms;
     -webkit-transition: all ease-in-out 300ms;
 }
-
 
 #menu .close-menu {
     position: absolute;
@@ -194,16 +260,7 @@ nav#menu.menu li .intern-menu,
     font-size: 20px;
 }
 
-#toggleMenu {
-    border-style: solid;
-    border-width: 1.5px;
-    border-radius: 10px;
-    border-color: white;
-    width: 200px;
-}
-
 #menu .close-menu:hover,
-#toggleMenu:hover,
 .button-border:hover {
     opacity: 0.6;
 }
@@ -265,7 +322,7 @@ nav.nav-header .nav-header-flex img {
 
 input[type="text"]:read-only {
     background: rgb(180, 180, 180);
-    color: black;
+    color: var(--second-text-color);
 }
 
 .mb-button-cep {
@@ -288,13 +345,23 @@ input[type="text"]:read-only {
     border-radius: 5px;
 }
 
-.login-button {
-    padding: 0;
+#nav-login {
     margin: 0;
+    padding: 0;
 }
 
-.profile-intern-menu a,
-.login-button a {
+#nav-login a {
+    display: flex;
+    padding: 6px 12px;
+    width: 100%;
+    height: 100%;
+}
+
+#nav-login svg {
+    align-self: center;
+}
+
+.profile-intern-menu a {
     display: block;
     width: 100%;
     height: auto;
@@ -306,7 +373,7 @@ input[type="text"]:read-only {
 }
 
 .profile-intern-menu a:hover {
-    background-color: rgba(220, 20, 60, 0.3);
+    background-color: var(--hover-color);
 }
 
 #cep-calculator-cart div label {
@@ -319,11 +386,8 @@ nav.nav-header div.search-item {
 }
 
 nav.nav-header div.search-item .cart-draw {
-    margin: 10px;
-}
-
-nav.nav-header div.search-item .form-control {
-    width: 400px;
+    align-self: center;
+    margin-right: 10px;
 }
 
 @media (max-width: 600px) {
@@ -333,14 +397,8 @@ nav.nav-header div.search-item .form-control {
 
 }
 
-@media (max-width: 600px) {
-    nav.nav-header div.search-item .form-inline {
-        max-width: 200px;
-    }
-}
-
-@media (min-width: 601px) and (max-width: 991px) {
-    nav.nav-header div.search-item .form-control {
+@media (max-width: 991px) {
+    .btn-size {
         width: auto;
     }
 }
