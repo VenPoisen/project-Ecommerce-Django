@@ -25,7 +25,7 @@ class ProductList(ListView):
 
 class Search(ProductList):
     def get_queryset(self, *args, **kwargs):
-        term = self.request.GET.get('term') or self.request.session['term']
+        term = self.request.GET.get('term')
         qs = super().get_queryset(*args, **kwargs)
 
         if not term:

@@ -44,7 +44,7 @@ class AddressForm(forms.ModelForm):
         self.helper.layout = Layout(Fieldset(
             "Use this form to Update your address.",
             Row(
-                Column('cep', css_class='col-md-10'),
+                Column('cep', css_class='col'),
                 Column(Button(
                     'submit', 'Find CEP', css_class='btn btn-danger text-white col-md-auto mb-button-cep btn-md', onclick='getCEP()',
                 )),

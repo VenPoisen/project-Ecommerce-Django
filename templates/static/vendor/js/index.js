@@ -178,4 +178,10 @@ function changeIconColor() {
 
 function clickRegister() {
     document.getElementById('register-form').classList.remove('d-none');
+    document.getElementById('login-form').classList.add('d-none');
+}
+
+function clickLogin() {
+    document.getElementById('register-form').classList.add('d-none');
+    document.getElementById('login-form').classList.remove('d-none');
 }

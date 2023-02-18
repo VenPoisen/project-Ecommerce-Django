@@ -8,7 +8,7 @@
 <div class="row text-color-two">
 
   {% if not request.user.is_authenticated %}
-  <div id="login-form" class="col-lg">
+  <div id="login-form" class="col-md-10 col-lg-8 m-auto">
     <h3>Login</h3>
 
     <form method='POST' action="{% url 'profiles:login' %}">
@@ -48,7 +48,7 @@
   </div>
   {% endif %}
 
-  <div id="register-form" class="col-lg-6 m-auto d-none">
+  <div id="register-form" class="col-md-10 col-lg-8 m-auto d-none">
 
     {% block updatetitle %}
     <h3>Register</h3>
@@ -66,9 +66,13 @@
       {% block updatebutton %}
       <div class="row">
         <div class="col">
-          <button type="submit" class='btn btn-danger btn-block text-white'>Register</button>
+          <button type="submit" class='btn btn-danger btn-block text-white mb-4'>Register</button>
         </div>
       </div>
+      <div class="text-center">
+        <p>Already a member? <a href="#!" onclick="clickLogin()">Login</a></p>
+      </div>
+
       {% endblock updatebutton %}
     </form>
   </div>
