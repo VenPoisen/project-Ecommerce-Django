@@ -291,7 +291,9 @@ class AddressCreate(BaseProfile):
     address_template_name = 'profiles/newaddress.html'
 
     def get(self, *args, **kwargs):
-        return render(self.request, self.address_template_name, self.context)
+        if self.request.user.is_authenticated:
+            return render(self.request, self.address_template_name, self.context)
+        return render(self.request, self.template_name, self.context)
 
     def post(self, *args, **kwargs):
 
