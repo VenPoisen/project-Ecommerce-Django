@@ -43,6 +43,7 @@ function toggleSearch() {
     }
     else if (toggleSearchStatus == 0) {
         document.getElementById("nav-search-btn").style.display = "none";
+        document.getElementById("nav-search-btn").classList.remove("d-md-block");
         setTimeout(function () {
             document.getElementById("nav-search-div").style.width = "0";
         }, 100);

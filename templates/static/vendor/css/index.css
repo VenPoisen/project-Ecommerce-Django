@@ -391,7 +391,7 @@ nav.nav-header div.search-item {
     color: var(--third-color);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.99px) {
     .mb-button-cep {
         margin: 0;
     }
@@ -401,7 +401,7 @@ nav.nav-header div.search-item {
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.99px) {
     .btn-size {
         width: auto;
     }
