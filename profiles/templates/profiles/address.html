@@ -25,8 +25,8 @@
                     </tr>
                 </thead>
 
-                {% for address in addresses %}
                 <tbody>
+                    {% for address in addresses %}
                     <tr class="text-center">
                         <td class="button-table-start">
                             <form action="{% url 'profiles:delete' address.id %}" method="get">
@@ -35,7 +35,7 @@
                                 </button>
                             </form>
                         </td>
-                        <th scope="row">{{address.cep}}</td>
+                        <td scope="row">{{address.cep}}</td>
                         <td>{{address.address}}</td>
                         <td>{{address.number}}</td>
                         <td>{{address.neighborhood}}</td>
@@ -49,8 +49,8 @@
                             </form>
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
-                {% endfor %}
 
             </table>
         </div>

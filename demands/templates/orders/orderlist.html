@@ -11,27 +11,31 @@
 
         <div class="table-responsive">
             <table class="table table-striped">
-                <tr>
-                    <th scope="col">Order</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Qty of Items</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">More Details</th>
-                </tr>
+                <thead class="main-color">
+                    <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Qty of Items</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">More Details</th>
+                    </tr>
+                </thead>
 
-                {% for order in orders %}
-                <tr>
-                    <th scope="row">{{order}}</td>
-                    <td>{{order.total|price_format}}</td>
-                    <td>{{order.total_qty}}</td>
-                    <td>{{order.get_status_display}}</td>
-                    <td>
-                        <a href="{% url 'orders:details' order.id %}">
-                            Open <i class="fas fa-search-plus ml-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td scope="row">{{order}}</td>
+                        <td>{{order.total|price_format}}</td>
+                        <td>{{order.total_qty}}</td>
+                        <td>{{order.get_status_display}}</td>
+                        <td>
+                            <a href="{% url 'orders:details' order.id %}">
+                                Open <i class="fas fa-search-plus ml-2"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
 
             </table>
         </div>
