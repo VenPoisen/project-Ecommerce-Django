@@ -14,4 +14,7 @@ urlpatterns = [
     path('checkout/', views.Checkout.as_view(), name='checkout'),
     path('checkout/getaddress/', views.get_checkoutaddress, name='getaddress'),
     path('search/', views.Search.as_view(), name='search'),
+    path('category/<str:category>',
+         views.ProductCategory.as_view(), name='category'),
+
 ]

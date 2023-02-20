@@ -22,7 +22,7 @@ class ProductAdmin(admin.ModelAdmin):
         VariationInline
     ]
     list_display = ('id', 'name', 'slug', 'summary',
-                    'get_formatted_price', 'get_formatted_promo_price', 'var_type')
+                    'get_formatted_price', 'get_formatted_promo_price', 'category', 'var_type')
     list_display_links = ('id', 'name', 'slug',)
 
 

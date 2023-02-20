@@ -22,6 +22,14 @@ class Product(models.Model):
         default=0,
         verbose_name='promotional marketing price'
     )
+    category = models.CharField(
+        default='T',
+        max_length=1,
+        choices=(
+            ('T', 'Technology'),
+            ('C', 'Clothes'),
+            ('F', 'Furniture'),
+        ))
     var_type = models.CharField(
         default='V',
         max_length=1,

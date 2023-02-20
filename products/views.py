@@ -44,6 +44,19 @@ class Search(ProductList):
         return qs
 
 
+class ProductCategory(ProductList):
+    def get_queryset(self, *args, **kwargs):
+        category = self.kwargs.get('category', None)
+        qs = super().get_queryset(*args, **kwargs)
+
+        if not category:
+            return qs
+
+        qs = qs.filter(category__iexact=category)
+
+        return qs
+
+
 class ProductDetails(DetailView):
     model = models.Product
     template_name = 'products/detail.html'
