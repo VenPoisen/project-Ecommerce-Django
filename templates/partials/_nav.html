@@ -67,13 +67,13 @@
                     <span class="d-none d-lg-block">Click here to search</span>
                 </div>
                 <form id="nav-search-form" class="row" method="get" action="{% url 'products:search' %}">
-                    <div id="nav-search-div">
+                    <div id="nav-search-div" class="m-auto">
                         <img data-src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
                             src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
                             alt class="img-fluid lazyloaded" width="24" height="24">
                         <input name="term" id="nav-search-input" value="{{ request.GET.term }}" class="form-control"
                             type="search" placeholder="Type here what you are looking for" aria-label="Search">
-                        <button id="nav-search-btn" class="btn btn-size btn-danger text-white"
+                        <button id="nav-search-btn" class="btn btn-size btn-danger d-none ml-md-2 text-white"
                             type="submit">Search</button>
                     </div>
                 </form>
@@ -88,8 +88,11 @@
                 {% endif %}
                 {% if request.user.is_authenticated %}
                 <div class="profile-btn" onmouseover="dropDown()" onmouseout="dropDown()">
-                    <button class='btn btn-outline-danger text-white btn-size' type="button">
+                    <button class='btn btn-outline-danger d-none d-sm-block text-white btn-size' type="button">
                         Profile &#9662
+                    </button>
+                    <button class='btn btn-outline-danger d-sm-none text-white btn-size' type="button">
+                        <i class="fa fa-user"></i> &#9662
                     </button>
                     <div class="profile-intern-menu main-color" id="profileDropDown">
                         <a href="{% url 'orders:list' %}">My Orders</a>

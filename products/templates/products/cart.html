@@ -23,8 +23,9 @@
     <div class="container m-0" id="cep-calculator-cart">
         <div class="row justify-content-start">
             <label class="col-1 pt-2 text-right text-color-two" for="cep-finder">Enter CEP:</label>
-            <div class="col-2" id="cep-finder">{{address.cep|as_crispy_field}}</div>
-            <div class="col-1 h-50 btn btn-outline-danger" id="btn-cep-finder" onclick="cepCartCalculate()">Calculate
+            <div class="col-5 col-sm-4 col-md-3 col-lg-2" id="cep-finder">{{address.cep|as_crispy_field}}</div>
+            <div class="col-2 h-50 btn btn-outline-danger" id="btn-cep-finder" onclick="cepCartCalculate()">
+                Calculate
             </div>
         </div>
         <div class="row justify-content-center">

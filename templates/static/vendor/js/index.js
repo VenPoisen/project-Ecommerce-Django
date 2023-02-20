@@ -37,7 +37,7 @@ function toggleSearch() {
             document.getElementById("nav-search-div").style.width = "100%";
         }, 100);
         setTimeout(function () {
-            document.getElementById("nav-search-btn").style.display = "block";
+            document.getElementById("nav-search-btn").classList.add("d-md-block");
         }, 400);
         toggleSearchStatus = 0;
     }

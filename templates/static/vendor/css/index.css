@@ -42,6 +42,10 @@ body main {
     vertical-align: text-top;
 }
 
+#btn-cep-finder {
+    max-width: 100px;
+}
+
 #button-delete-item:hover,
 #cep-calculator-cart #btn-cep-finder:hover {
     cursor: pointer;
@@ -392,6 +396,9 @@ nav.nav-header div.search-item {
         margin: 0;
     }
 
+    #nav-search-form {
+        max-width: 500px;
+    }
 }
 
 @media (max-width: 991px) {
@@ -401,5 +408,23 @@ nav.nav-header div.search-item {
 
     .max-w-card {
         max-width: 540px;
+    }
+
+    #nav-search-form {
+        max-width: 690px;
+    }
+
+    #nav-search-form div button {
+        right: -40px;
+    }
+}
+
+@media (min-width: 992px) and (max-width:1199px) {
+    #nav-search-form {
+        max-width: 925px;
+    }
+
+    #nav-search-form div button {
+        right: -32px;
     }
 }
