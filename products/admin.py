@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Variation
+from .models import Product, Variation, ProductImage
 from .forms import RequiredVariation
 
 
@@ -11,6 +11,13 @@ class VariationInline(admin.TabularInline):
     can_delete = True
 
 
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    min_num = 1
+    extra = 1
+    can_delete = True
+
+
 class VariationAdmin(admin.ModelAdmin):
     list_display = ('product', 'name', 'price', 'promo_price', 'stock')
     list_filter = ('product',)
@@ -19,7 +26,8 @@ class VariationAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     inlines = [
-        VariationInline
+        ProductImageInline,
+        VariationInline,
     ]
     list_display = ('id', 'name', 'slug', 'summary',
                     'get_formatted_price', 'get_formatted_promo_price', 'category', 'var_type')

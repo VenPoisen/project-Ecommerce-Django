@@ -99,6 +99,26 @@
 })();
 
 (function () {
+    detail_img = $('#prev-img-detail img');
+
+    if (!detail_img) {
+        return;
+    }
+    else {
+        detail_img.click(function () {
+            clicked_img_src = $(this).attr("src");
+            active_img = $('.carousel-item.active');
+            new_img = $('.carousel-item').find('[src="' + clicked_img_src + '"]');
+
+            if (!new_img.parent().hasClass("active")) {
+                active_img.removeClass('active');
+                new_img.parent('div').addClass('active');
+            }
+        });
+    }
+})();
+
+(function () {
     del_qty = document.getElementsByName('del-qty');
     item_qty = document.getElementsByName('item-qty');
 

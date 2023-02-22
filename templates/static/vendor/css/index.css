@@ -83,6 +83,10 @@ body main {
     color: var(--second-text-color);
 }
 
+.blue-color {
+    color: var(--main-color);
+}
+
 .nav-header a,
 .new-address a {
     text-decoration: none;
@@ -289,6 +293,21 @@ nav.nav-header .nav-header-flex img {
     margin-right: auto;
 }
 
+#img-div-all {
+    max-width: 550px;
+}
+
+#prev-img-detail div {
+    margin: 8px;
+    max-height: 100px;
+    width: auto;
+}
+
+#prev-img-detail div img {
+    max-height: 100%;
+    width: 100px;
+}
+
 .text-space {
     line-height: 35px;
     font-size: 20px;
@@ -398,6 +417,11 @@ nav.nav-header div.search-item {
 
     #nav-search-form {
         max-width: 500px;
+    }
+
+    #prev-img-detail div img {
+        max-height: 100%;
+        width: 50px;
     }
 }
 

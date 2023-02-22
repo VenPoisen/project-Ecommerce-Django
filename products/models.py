@@ -11,11 +11,6 @@ class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name='name')
     summary = models.TextField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(
-        upload_to=r'product_img/%Y/%m/%d',
-        blank=True,
-        null=True
-    )
     slug = models.SlugField(unique=True, blank=True, null=True)
     mrkt_price = models.FloatField(verbose_name='marketing price')
     promo_mrkt_price = models.FloatField(
@@ -54,6 +49,18 @@ class Product(models.Model):
         if not self.slug:
             slug = f'{slugify(self.name)}'
             self.slug = slug
+        super().save(*args, **kwargs)
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to=r'product_img/%Y/%m/%d',
+        blank=True,
+        null=True, unique=True
+    )
+
+    def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
         if self.image:

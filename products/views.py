@@ -89,9 +89,10 @@ class AddToCart(View):
         variation_name = variation.name or ''
         unit_price = variation.price
         promo_unit_price = variation.promo_price
-        quantity = 1
         slug = product.slug
-        image = product.image
+        images = models.ProductImage.objects.filter(
+            product_id=product_id).first()
+        image = images.image
 
         if image:
             image = image.name
