@@ -32,13 +32,4 @@ urlpatterns = [
             {'document_root': settings.MEDIA_ROOT}),
     path("favicon.ico", RedirectView.as_view(
         url=staticfiles_storage.url("favicon.ico"))),
-
-
 ]
-
-# TODO: Remove after DEBUG=False
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns

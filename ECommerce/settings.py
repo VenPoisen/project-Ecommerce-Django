@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['ecommerce-django.onrender.com', '127.0.0.1']
 
@@ -50,9 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-
-    # TODO: Remove after DEBUG=False
-    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -64,8 +61,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # TODO: Remove after DEBUG=False
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'ECommerce.urls'
@@ -177,15 +172,3 @@ SESSION_SAVE_EVERY_REQUEST = False
 # SESSION_FILE_PATH = '/home/alan/Desktop/temp'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-# TODO: Remove after DEBUG=False && django-debug-toolbar
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    "localhost",
-    # ...
-]
-# TODO: Remove after DEBUG=False && django-debug-toolbar
-if DEBUG:
-    import mimetypes
-    mimetypes.add_type("application/javascript", ".js", True)
