@@ -1,24 +1,80 @@
 {% load static %}
 {% load vnpfilters %}
-
-<nav class="nav-header navbar navbar-dark main-color navbar-expand-lg">
+<nav class="nav-header main-color navbar-expand-lg px-2">
     <div class="nav-header-width">
         <div class="nav-header-flex">
-            <button class="button-border d-lg-none" type="button" onclick="toggleMenu()">
-                <div class="bars">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </button>
 
             <a class="navbar-brand" href="{% url 'products:list' %}"> <img src="/static/android-chrome-192x192.png"
                     alt="logo site image">
             </a>
 
-            <button id="toggleMenu" class="btn d-none d-lg-block btn-outline-danger text-white" type="button"
-                onclick="toggleMenu()">Categories</button>
+            <div class="flex-search">
+                <div class="d-flex" onclick="toggleSearch()">
+                    <img data-src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                        src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                        alt class="img-fluid lazyloaded" width="24" height="24">
+                    <span class="d-none d-lg-block">Click here to search</span>
+                </div>
+                <form id="nav-search-form" class="row" method="get" action="{% url 'products:search' %}">
+                    <div id="nav-search-div">
+                        <img data-src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                            src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
+                            alt class="img-fluid lazyloaded" width="24" height="24">
+                        <input name="term" id="nav-search-input" value="{{ request.GET.term }}" class="form-control"
+                            type="search" placeholder="Type here what you are looking for" aria-label="Search">
+                        <button id="nav-search-btn" class="btn btn-size btn-danger d-none ml-md-2 text-white"
+                            type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="">
+                <button class="button-border d-flex d-lg-none ml-auto mb-2" type="button" onclick="toggleMenu()">
+                    <div class="bars">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </button>
+                <button id="toggleMenu" class="btn btn-outline-danger btn-sm text-white d-none d-lg-block mb-2"
+                    type="button" onclick="toggleMenu()">Categories</button>
 
+                <div class="profile-menu">
+                    {% if request.session.cart %}
+                    <a class="cart-draw" href="{% url 'products:cart' %}">
+                        <strong>{{request.session.cart|cart_total_qty}}x</strong>
+                        <span class="fas fa-shopping-cart"></span>
+                    </a>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <div class="profile-btn" onmouseover="dropDown()" onmouseout="dropDown()">
+                        <button class='btn btn-outline-danger btn-sm btn-size text-white d-none d-sm-block'
+                            type="button">
+                            Profile &#9662
+                        </button>
+                        <button class='btn btn-outline-danger btn-sm btn-size text-white d-sm-none' type="button">
+                            <i class="fa fa-user"></i> &#9662
+                        </button>
+                        <div class="profile-intern-menu main-color" id="profileDropDown">
+                            <a href="{% url 'orders:list' %}">My Orders</a>
+                            <a href="{% url 'profiles:create' %}">Update Profile</a>
+                            <a href="{% url 'profiles:address' %}">Update Address</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'profiles:logout' %}">Logout</a>
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <button id="nav-login" class="btn btn-outline-danger btn-size text-white login-button"
+                        type="button">
+                        <a href="{% url 'profiles:create' %}">
+                            <i class="fa fa-user"></i>
+                            <span class="d-none d-lg-block ml-2">Login</span>
+                        </a>
+                    </button>
+                    {% endif %}
+                </div>
+
+            </div>
             <nav id="menu" class="menu">
                 <div class="close-menu" onclick="toggleMenu()"></div>
                 <ul>
@@ -59,61 +115,9 @@
                 </ul>
             </nav>
 
-            <div class="flex-search">
-                <div class="row" onclick="toggleSearch()">
-                    <img data-src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
-                        src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
-                        alt class="img-fluid lazyloaded" width="24" height="24">
-                    <span class="d-none d-lg-block">Click here to search</span>
-                </div>
-                <form id="nav-search-form" class="row" method="get" action="{% url 'products:search' %}">
-                    <div id="nav-search-div">
-                        <img data-src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
-                            src="//d2az8otjr0j19j.cloudfront.net/templates/001/078/806/twig/static/images/icon-search.png?84488646"
-                            alt class="img-fluid lazyloaded" width="24" height="24">
-                        <input name="term" id="nav-search-input" value="{{ request.GET.term }}" class="form-control"
-                            type="search" placeholder="Type here what you are looking for" aria-label="Search">
-                        <button id="nav-search-btn" class="btn btn-size btn-danger d-none ml-md-2 text-white"
-                            type="submit">Search</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="search-item">
-                {% if request.session.cart %}
-                <a class="cart-draw" href="{% url 'products:cart' %}">
-                    <strong>{{request.session.cart|cart_total_qty}}x</strong>
-                    <span class="fas fa-shopping-cart"></span>
-                </a>
-                {% endif %}
-                {% if request.user.is_authenticated %}
-                <div class="profile-btn" onmouseover="dropDown()" onmouseout="dropDown()">
-                    <button class='btn btn-outline-danger d-none d-sm-block text-white btn-size' type="button">
-                        Profile &#9662
-                    </button>
-                    <button class='btn btn-outline-danger d-sm-none text-white btn-size' type="button">
-                        <i class="fa fa-user"></i> &#9662
-                    </button>
-                    <div class="profile-intern-menu main-color" id="profileDropDown">
-                        <a href="{% url 'orders:list' %}">My Orders</a>
-                        <a href="{% url 'profiles:create' %}">Update Profile</a>
-                        <a href="{% url 'profiles:address' %}">Update Address</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="{% url 'profiles:logout' %}">Logout</a>
-                    </div>
-                </div>
-
-                {% else %}
-                <button id="nav-login" class="btn btn-outline-danger btn-size login-button" type="button">
-                    <a href="{% url 'profiles:create' %}">
-                        <i class="fa fa-user"></i>
-                        <span class="d-none d-lg-block ml-2">Login</span>
-                    </a>
-                </button>
-                {% endif %}
-            </div>
 
         </div>
+
     </div>
 </nav>
 <div class="block-outside" id="block-outside" onclick="toggleMenu()"></div>

@@ -1,5 +1,6 @@
 :root {
     --main-color: #16324f;
+    --main-color-fade: rgba(23, 50, 79, 0.9);
     --secondary-color: #E6E8E6;
     --third-color: #dc3545;
     --main-text-color: white;
@@ -51,8 +52,17 @@ body main {
     cursor: pointer;
 }
 
-.price-format-size {
-    min-width: 85px;
+.hover-color:hover {
+    background-color: var(--main-color-fade);
+    color: var(--third-color) !important;
+}
+
+.shadow-all {
+    box-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.rounded-1 {
+    border-radius: 0.5rem;
 }
 
 .max-w-card {
@@ -60,7 +70,7 @@ body main {
 }
 
 .card-img-block {
-    height: 300px;
+    height: 40vw;
     overflow: hidden;
     text-align: center;
 }
@@ -97,24 +107,25 @@ body main {
     background-color: inherit;
     border-radius: 10%;
     border-style: solid;
-    border-color: var(--main-text-color);
+    border-color: var(--third-color);
+    margin-right: 13px;
 }
 
 .button-border:focus {
     outline-style: solid;
     outline-width: 0.1px;
-    outline-color: var(--main-text-color);
+    outline-color: var(--main-color);
 }
 
 #toggleMenu {
-    width: 20%;
+    width: 100%;
 }
 
 .bars div {
-    width: 35px;
-    height: 3px;
+    width: 30px;
+    height: 2px;
     background-color: var(--main-text-color);
-    margin: 7px 0;
+    margin: 6px 0;
 }
 
 div#block-outside.block-outside,
@@ -195,7 +206,7 @@ nav li .intern-menu {
 #nav-search-form {
     display: none;
     position: absolute;
-    top: 110%;
+    top: 15%;
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -352,7 +363,7 @@ input[type="text"]:read-only {
 .profile-intern-menu {
     display: block;
     position: absolute;
-    left: -40px;
+    left: -60px;
     right: 0;
     text-align: center;
     z-index: 110;
@@ -396,9 +407,9 @@ input[type="text"]:read-only {
     min-width: 110px;
 }
 
-nav.nav-header div.search-item {
+nav.nav-header div.profile-menu {
     display: flex;
-    align-items: flex-start;
+    justify-content: flex-end;
 }
 
 .cart-draw {
@@ -408,6 +419,12 @@ nav.nav-header div.search-item {
 
 .cart-draw:hover {
     color: var(--third-color);
+}
+
+@media (max-width: 575.99px) {
+    .button-border {
+        margin-right: 0;
+    }
 }
 
 @media (max-width: 767.99px) {
@@ -422,6 +439,10 @@ nav.nav-header div.search-item {
     #prev-img-detail div img {
         max-height: 100%;
         width: 50px;
+    }
+
+    .card-img-block {
+        height: auto;
     }
 }
 
@@ -443,12 +464,22 @@ nav.nav-header div.search-item {
     }
 }
 
-@media (min-width: 992px) and (max-width:1199px) {
+@media (min-width: 992px) and (max-width:1199.99px) {
     #nav-search-form {
         max-width: 925px;
     }
 
     #nav-search-form div button {
         right: -32px;
+    }
+
+    .card-img-block {
+        height: 25vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-img-block {
+        height: 320px;
     }
 }

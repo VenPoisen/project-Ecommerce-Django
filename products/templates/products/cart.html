@@ -7,73 +7,123 @@
 {% block content %}
 
 {% if cart %}
+<div class="container text-color-two">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="card mb-4 rounded-lg">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Cart - {{cart|cart_total_qty}} items</h5>
+                </div>
+                <div class="card-body">
+                    {% include 'partials/_cart.html' %}
+                </div>
+            </div>
 
-<div class="row mt-3 text-color-two">
-    <div class="col">
-        <h3>Shopping cart</h3>
-        <p class="lead">The products, quantities and prices you have chosen.</p>
-
-        {% include 'partials/_cart.html' %}
-
-    </div>
-</div>
-
-<form action="" method="get" class="">
-    <p class='lead mt-3 text-color-two'>Calculate shipping price</p>
-    <div class="container m-0" id="cep-calculator-cart">
-        <div class="row justify-content-start">
-            <label class="col-1 pt-2 text-right text-color-two" for="cep-finder">Enter CEP:</label>
-            <div class="col-5 col-sm-4 col-md-3 col-lg-2" id="cep-finder">{{address.cep|as_crispy_field}}</div>
-            <div class="col-2 h-50 btn btn-outline-danger" id="btn-cep-finder" onclick="cepCartCalculate()">
-                Calculate
+            <div class="card mb-4 rounded-lg">
+                <div class="card-header py-3">
+                    <h5 class='mb-0 text-color-two'>Calculate Shipping Price</h5>
+                </div>
+                <div class="card-body">
+                    <form action="" method="get" class="">
+                        <div class="container m-0" id="cep-calculator-cart">
+                            <div class="row justify-content-start mb-2">
+                                <label class="col-12 col-sm-1 pt-2 text-left text-color-two"
+                                    for="cep-finder"><strong>Enter
+                                        CEP:</strong></label>
+                                <div class="col-6 col-sm-4 col-lg-3" id="cep-finder">
+                                    {{address.cep|as_crispy_field}}</div>
+                                <div class="col-2 h-50 btn btn-danger" id="btn-cep-finder" onclick="cepCartCalculate()">
+                                    Calculate
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <span class="col-8 text-danger" id="error_msg_price"></span>
+                            </div>
+                            <div class="row d-none" id="cep-results-cart">
+                                <label class="col-1 text-right text-color-two mb-2"
+                                    for="cep-finder-price">Price:</label>
+                                <div id='cep-finder-price' class="col text-success mb-2"></div>
+                                <div class="col-12">
+                                    <p class="mb-0"><strong>Expected shipping delivery: </strong> 15 working days</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card mb-4 mb-lg-0 rounded-lg">
+                <div class="card-body">
+                    <p><strong>We accept</strong></p>
+                    <img class="me-2" width="45px"
+                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                        alt="Visa" />
+                    <img class="me-2" width="45px"
+                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                        alt="American Express" />
+                    <img class="me-2" width="45px"
+                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                        alt="Mastercard" />
+                    <img class="me-2" width="45px"
+                        src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg"
+                        alt="PayPal acceptance mark" />
+                </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <span class="col-9 text-danger" id="error_msg_price"></span>
-        </div>
-        <div class="row d-none" id="cep-results-cart">
-            <label class="col-1 text-right text-color-two" for="cep-finder-price">Price:</label>
-            <div id='cep-finder-price' class="col text-success"></div>
+
+        <div class="col-md-4 rounded-lg">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Summary</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 py-2">
+                            Products
+                            <span>{{ cart|cart_totals|price_format}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2"
+                            id="shipping-total">
+                            Shipping
+                            <span id="shipping-total-price">-</span>
+                            <input type="hidden" name="total-cart" value="{{cart|cart_totals}}">
+                        </li>
+                        <li
+                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                            <div class="mr-3">
+                                <strong>Total amount</strong>
+                                <strong>
+                                    <p class="mb-0">(including VAT)</p>
+                                </strong>
+                            </div>
+                            <span id="total-amount" class="font-weight-bold">{{ cart|cart_totals|price_format}}</span>
+                        </li>
+                    </ul>
+
+                    <div class="col-lg mt-auto p-0">
+                        {% if request.user.is_authenticated %}
+                        <a class="btn btn-lg btn-block btn-danger" href="{% url 'products:checkout' %}">
+                            Proceed to Checkout
+                        </a>
+                        {% else %}
+                        <a class="btn btn-lg btn-block btn-danger" href="{% url 'profiles:create' %}">
+                            Proceed to Checkout
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</form>
-
-<div class="row mt-3 ">
-    <div class="col-lg">
-        <p class='lead text-color-two'>Total on cart</p>
-
-        <div class='table-responsive'>
-            <table class="table">
-                <tr>
-                    <td class="font-weight-bold">Total</td>
-                    <td>{{ cart|cart_totals|price_format}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <div class="col-lg mt-auto">
-        {% if request.user.is_authenticated %}
-        <a class="btn btn-lg btn-block btn-danger" href="{% url 'products:checkout' %}">
-            Proceed to Checkout
-        </a>
-        {% else %}
-        <a class="btn btn-lg btn-block btn-danger" href="{% url 'profiles:create' %}">
-            Proceed to Checkout
-        </a>
-        {% endif %}
-    </div>
-
 </div>
 
 {% else %}
-
 <div class="row mt-3 text-color-two">
     <div class="col">
         <h3>Empty Cart</h3>
         <p class="lead">No products on your cart.</p>
     </div>
 </div>
-
 {% endif %}
 
 {% endblock content %}

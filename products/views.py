@@ -90,6 +90,7 @@ class AddToCart(View):
         unit_price = variation.price
         promo_unit_price = variation.promo_price
         slug = product.slug
+        category = product.category
         images = models.ProductImage.objects.filter(
             product_id=product_id).first()
         image = images.image
@@ -140,12 +141,13 @@ class AddToCart(View):
             cart[variation_id] = {
                 'product_id': product_id,
                 'product_name': product_name,
+                'category': category,
                 'variation_name': variation_name,
                 'variation_id': variation_id,
                 'unit_price': unit_price,
                 'promo_unit_price': promo_unit_price,
-                'quantitative_price': unit_price,
-                'promo_quantitative_price': promo_unit_price,
+                'quantitative_price': unit_price * int(variation_quantity_add),
+                'promo_quantitative_price': promo_unit_price * int(variation_quantity_add),
                 'quantity': int(variation_quantity_add),
                 'slug': slug,
                 'image': image,
@@ -182,6 +184,9 @@ class RemoveFromCart(View):
         cart = self.request.session['cart'][variation_id]
 
         cart['quantity'] -= int(delete_qty)
+        cart['quantitative_price'] = cart['unit_price'] * cart['quantity']
+        cart['promo_quantitative_price'] = cart['promo_unit_price'] * \
+            cart['quantity']
         if cart['quantity'] < 1:
             del self.request.session['cart'][variation_id]
 
@@ -283,18 +288,31 @@ def get_checkoutaddress(request, *args, **kwargs):
 def get_cart_cep_price(request, *args, **kwargs):
     if request.method == 'GET':
         cep_number = request.GET['inputSelect']
+        cart = cart_totals(request.session['cart'])
+        cart_only = price_format(cart)
 
         if not cep_number:
-            return JsonResponse({"price": "false"})
+            return JsonResponse({
+                "price": "false",
+                "cart_only": cart_only,
+            })
 
         valid_cep = addressgenerator.address(cep_number)
         if not valid_cep:
-            return JsonResponse({"price": "false"})
+            return JsonResponse({
+                "price": "false",
+                "cart_only": cart_only,
+            })
 
         shipping_price = shippingcalculator.calculator(cep_number)
         shipping_price_formatted = price_format(shipping_price)
+        sum_cart = shipping_price + cart
+        sum_cart_formatted = price_format(sum_cart)
+
         shipping = {
-            'shipping_price_formatted': shipping_price_formatted,
+            "shipping_price_formatted": shipping_price_formatted,
+
+            "cart_total": sum_cart_formatted,
             "price": "true",
         }
         return JsonResponse(shipping)

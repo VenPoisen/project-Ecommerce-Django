@@ -122,17 +122,19 @@ function inputSelector() {
                 state = document.getElementById("g-state");
                 cep = document.getElementById("g-cep");
                 shipping_price = document.getElementById("shipping-price");
+                shipping_total = document.getElementById("shipping-total");
                 cart_total = document.getElementById("cart-total");
 
-
-                address.innerHTML = data.address;
-                number.innerHTML = data.number;
-                complement.innerHTML = data.complement;
-                neighborhood.innerHTML = data.neighborhood;
-                city.innerHTML = data.city;
-                state.innerHTML = data.state;
+                if (data.complement) {
+                    address.innerHTML = data.address + ", " + data.number + ", " + data.complement + ", " + data.neighborhood;
+                }
+                else {
+                    address.innerHTML = data.address + ", " + data.number + ", " + data.neighborhood;
+                }
+                city.innerHTML = data.city + ", " + data.state;
                 cep.innerHTML = data.cep;
                 shipping_price.innerHTML = data.shipping_price_formatted;
+                shipping_total.innerHTML = data.shipping_price_formatted;
                 cart_total.innerHTML = data.cart_total;
             }
         }
@@ -150,17 +152,26 @@ function cepCartCalculate() {
             $("#btn-cep-finder").css("cursor", "wait");
             valid_cep = data.price;
             error_msg = document.getElementById('error_msg_price');
+            total_shipping_price = document.getElementById('shipping-total-price');
+            total_amount = document.getElementById('total-amount');
 
             if (valid_cep == 'true') {
                 error_msg.innerHTML = '';
                 price = document.getElementById('cep-finder-price');
+                total_shipping = document.getElementById('shipping-total');
+
                 price.innerHTML = data.shipping_price_formatted;
+                total_shipping_price.innerHTML = data.shipping_price_formatted;
+                total_amount.innerHTML = data.cart_total;
 
                 document.getElementById('cep-results-cart').classList.remove('d-none');
             }
             if (valid_cep == 'false') {
                 error_msg.innerHTML = 'Invalid CEP!';
                 document.getElementById('cep-results-cart').classList.add('d-none');
+
+                total_shipping_price.innerHTML = "-";
+                total_amount.innerHTML = data.cart_only;
             }
 
             setTimeout(function () {
