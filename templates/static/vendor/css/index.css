@@ -58,7 +58,7 @@ body main {
 }
 
 .shadow-all {
-    box-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.075) !important;
+    box-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.1) !important;
 }
 
 .rounded-1 {

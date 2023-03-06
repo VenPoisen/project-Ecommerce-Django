@@ -5,60 +5,62 @@
 {% for line in cart.values %}
 <form action="{%url 'products:removecart'%}" method="get" name="delete-form">
     <input type="hidden" name="vid" value="{{line.variation_id}}">
-    <div class="row shadow-all p-3 rounded-1 mb-3 mx-1">
-        <div class="col-lg-4 col-xl-3 col-md-12 p-4">
-            <!-- Image -->
+    <div class="row shadow-all p-3 rounded-1 mb-3 mx-1 justify-content-center justify-content-lg-start">
+        <div class="d-none d-sm-flex col-sm-4 col-lg-4 col-xl-3 p-4">
             <div>
                 <a href="{% url 'products:detail' line.slug %}">
                     <img src="{% get_media_prefix %}{{ line.image }}" class="w-100 rounded-lg"
                         alt="{{ line.image.name }}" />
                 </a>
             </div>
-            <!-- Image -->
         </div>
 
-        <div class="col-xl-6 col-lg-5 col-md-6 mb-4 mb-md-0 align-self-center">
-            <a class="text-dec" href="{% url 'products:detail' line.slug %}">
+        <div class="col-sm-8 col-xl-9 mb-4 mb-md-0 align-self-center">
+            <a class="row text-dec" href="{% url 'products:detail' line.slug %}">
                 <h5><strong>{{ line.product_name }}</strong></h5>
             </a>
+            <div class="row justify-content-between">
+                <div class="col-md-6 mb-4 mb-md-0 align-self-center">
 
-            {% if line.category == "C" %}
-            <p class="mb-0"><strong>Size: </strong>{{line.variation_name}}</p>
-            {% else %}
-            <p class="mb-0"><strong> Variation: </strong> {{line.variation_name}}</p>
-            {% endif %}
-
-            {% if line.promo_unit_price %}
-            <p><strong> Unit price: </strong> {{line.promo_unit_price|price_format}}</p>
-            {% else %}
-            <p><strong> Unit price: </strong> {{line.unit_price|price_format}}</p>
-            {% endif %}
-
-
-            <button type="button" class="btn main-color btn-sm hover-color" title="Move to the wish list">
-                <i class="fas fa-heart"></i>
-            </button>
-        </div>
-
-        <div class="col-lg-3 col-md-6 align-self-end">
-            <div class="row justify-content-center justify-content-md-end">
-                <div class="col-4 col-md-4 pr-0 pl-sm-5 p-md-0 mb-4 mb-md-5  text-center text-md-left">
-                    <h5 class="fw-normal mb-0" itemsQTY="{{line.quantity}}" name="item-qty">
-                        {{line.quantity}}</h5>
-                </div>
-                <div class="col-6 col-md-5 col-lg-7 p-0 mb-4 mb-md-5 mr-1 text-center text-md-right">
-                    {% if line.promo_quantitative_price %}
-                    <h5 class="mb-0">{{line.promo_quantitative_price|price_format}}</h5>
+                    {% if line.category == "C" %}
+                    <p class="mb-0"><strong>Size: </strong>{{line.variation_name}}</p>
                     {% else %}
-                    <h5 class="mb-0">{{line.quantitative_price|price_format}}</h5>
+                    <p class="mb-0"><strong> Variation: </strong> {{line.variation_name}}</p>
                     {% endif %}
+
+                    {% if line.promo_unit_price %}
+                    <p><strong> Unit price: </strong> {{line.promo_unit_price|price_format}}</p>
+                    {% else %}
+                    <p><strong> Unit price: </strong> {{line.unit_price|price_format}}</p>
+                    {% endif %}
+
+
+                    <button type="button" class="btn main-color btn-sm hover-color" title="Move to the wish list">
+                        <i class="fas fa-heart"></i>
+                    </button>
                 </div>
-                <select name="del-qty" id="delete-qty"
-                    class="col-3 col-sm-2 col-md-4 col-lg-5 col-xl-4 form-control-sm mr-1"></select>
-                <button type="button" class="col-2 col-md-4 col-lg-5 col-xl-4 btn btn-danger" name="button-delete-item"
-                    id="button-delete-item" title="Remove item">
-                    <i class="fas fa-trash"></i>
-                </button>
+
+                <div class="col-md-6 align-self-end">
+                    <div class="row justify-content-center justify-content-md-end">
+                        <div class="col-4 col-lg-3 pr-0 pl-sm-5 p-md-0 mb-3 text-center text-md-left">
+                            <h5 class="fw-normal mb-0" itemsQTY="{{line.quantity}}" name="item-qty">
+                                {{line.quantity}}</h5>
+                        </div>
+                        <div class="col-6 col-md-10 col-lg-7 p-0 mb-4 mr-lg-1 text-center text-md-right">
+                            {% if line.promo_quantitative_price %}
+                            <h5 class="mb-0">{{line.promo_quantitative_price|price_format}}</h5>
+                            {% else %}
+                            <h5 class="mb-0">{{line.quantitative_price|price_format}}</h5>
+                            {% endif %}
+                        </div>
+                        <select name="del-qty" id="delete-qty"
+                            class="col-3 col-sm-2 col-md-6 col-lg-5 col-xl-4 form-control-sm mr-1"></select>
+                        <button type="button" class="col-2 col-md-5 col-xl-4 btn btn-danger" name="button-delete-item"
+                            id="button-delete-item" title="Remove item">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
