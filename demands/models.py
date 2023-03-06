@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
 from django.conf import settings
+from datetime import date
 import os
 
 
@@ -11,6 +12,7 @@ class Demand(models.Model):
     shipping_price = models.FloatField()
     total_w_shipping = models.FloatField()
     total_qty = models.PositiveIntegerField()
+    creation_date = models.DateField(default=date.today)
     status = models.CharField(
         default='C',
         max_length=1,

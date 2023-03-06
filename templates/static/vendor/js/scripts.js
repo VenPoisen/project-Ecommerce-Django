@@ -184,3 +184,48 @@
         return;
     }
 })();
+
+(function () {
+    track_order = document.getElementById("track");
+
+    if (!track_order) {
+        return;
+    }
+    else {
+        order_status = document.getElementById("order_status");
+        track_confirmed = document.getElementById("track_confirmed");
+        track_pending = document.getElementById("track_pending");
+        track_sent = document.getElementById("track_sent");
+        track_finished = document.getElementById("track_finished");
+        order_step = document.getElementById("order_step");
+
+        if (order_status.innerText == "Created") {
+            track_confirmed.classList.add("active");
+            order_step.innerHTML = "Order created";
+        }
+        if (order_status.innerText == "Approved") {
+            track_confirmed.classList.add("active");
+        }
+        if (order_status.innerText == "Pending") {
+            track_confirmed.classList.add("active");
+            track_pending.classList.add("active");
+        }
+        if (order_status.innerText == "Sent") {
+            track_confirmed.classList.add("active");
+            track_pending.classList.add("active");
+            track_sent.classList.add("active");
+        }
+        if (order_status.innerText == "Finished") {
+            track_confirmed.classList.add("active");
+            track_pending.classList.add("active");
+            track_sent.classList.add("active");
+            track_finished.classList.add("active");
+        }
+        if (order_status.innerText == "Disapproved") {
+            track_confirmed.classList.add("disapproved");
+            order_step.classList.add("text-red");
+            order_step.innerHTML = "Order disapproved";
+            document.getElementById("track_error").innerHTML = "There is an error with your order, please contact support";
+        }
+    }
+})();

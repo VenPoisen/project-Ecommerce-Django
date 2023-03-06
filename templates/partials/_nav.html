@@ -63,9 +63,10 @@
                     </div>
 
                     {% else %}
-                    <button id="nav-login" class="btn btn-outline-danger btn-size text-white login-button"
+                    <button id="nav-login"
+                        class="btn btn-outline-danger btn-sm btn-size btn-sm-size text-white login-button mr-auto"
                         type="button">
-                        <a href="{% url 'profiles:create' %}">
+                        <a href="{% url 'profiles:create' %}" class="justify-content-center">
                             <i class="fa fa-user"></i>
                             <span class="d-none d-lg-block ml-2">Login</span>
                         </a>

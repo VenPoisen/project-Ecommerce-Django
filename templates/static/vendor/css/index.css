@@ -117,6 +117,10 @@ body main {
     outline-color: var(--main-color);
 }
 
+.mw-150 {
+    min-width: 150px;
+}
+
 #toggleMenu {
     width: 100%;
 }
@@ -347,6 +351,71 @@ nav.nav-header .nav-header-flex img {
     text-align: end;
 }
 
+.track {
+    position: relative;
+    background-color: var(--secondary-color);
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+.track .step {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative;
+}
+
+.track .step.active:before {
+    background: var(--main-color);
+}
+
+.track .step.disapproved:before {
+    background: var(--third-color);
+}
+
+.track .step::before {
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px;
+}
+
+.track .step.active .icon {
+    background: var(--main-color);
+    color: var(--main-text-color);
+}
+
+.track .step.disapproved .icon {
+    background: var(--third-color);
+    color: var(--main-text-color);
+}
+
+.track .icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: var(--secondary-color);
+}
+
+.track .text {
+    display: block;
+    margin-top: 7px;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
 input[type="text"]:read-only {
     background: rgb(180, 180, 180);
     color: var(--second-text-color);
@@ -403,7 +472,8 @@ input[type="text"]:read-only {
     background-color: var(--hover-color);
 }
 
-#cep-calculator-cart div label {
+#cep-calculator-cart div label,
+.mw-110 {
     min-width: 110px;
 }
 
@@ -417,7 +487,8 @@ nav.nav-header div.profile-menu {
     margin-right: 10px;
 }
 
-.cart-draw:hover {
+.cart-draw:hover,
+.text-red {
     color: var(--third-color);
 }
 
@@ -425,6 +496,11 @@ nav.nav-header div.profile-menu {
     .button-border {
         margin-right: 0;
     }
+
+    .track {
+        margin-bottom: 80px;
+    }
+
 }
 
 @media (max-width: 767.99px) {
@@ -449,6 +525,11 @@ nav.nav-header div.profile-menu {
 @media (max-width: 991.99px) {
     .btn-size {
         width: auto;
+    }
+
+    .btn-size.btn-sm-size {
+        width: 46px;
+        height: 36px;
     }
 
     .max-w-card {

@@ -20,6 +20,8 @@ class DemandAdmin(admin.ModelAdmin):
         AddressDemandInline
     ]
 
+    readonly_fields = ('creation_date',)
+
 
 admin.site.register(models.Demand, DemandAdmin)
 admin.site.register(models.ItemDemand)
