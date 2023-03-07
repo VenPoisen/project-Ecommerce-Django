@@ -223,6 +223,8 @@
         }
         if (order_status.innerText == "Disapproved") {
             track_confirmed.classList.add("disapproved");
+            document.getElementById('track_confirmed_dissaproved').classList.remove("fa-check");
+            document.getElementById('track_confirmed_dissaproved').classList.add("fa-times");
             order_step.classList.add("text-red");
             order_step.innerHTML = "Order disapproved";
             document.getElementById("track_error").innerHTML = "There is an error with your order, please contact support";

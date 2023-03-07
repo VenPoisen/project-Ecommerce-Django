@@ -42,7 +42,7 @@ class AddressForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.layout = Layout(Fieldset(
-            "Use this form to Update your address.",
+            "",
             Row(
                 Column('cep', css_class='col'),
                 Column(Button(

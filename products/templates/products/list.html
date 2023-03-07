@@ -12,18 +12,21 @@
             {% if product.productimage_set.all %}
             <div id="carouselControl{{ product.id }}" class="card-img-block d-flex pt-3 px-5 carousel slide"
                 data-ride="carousel">
-                <div class="carousel-inner my-auto">
+                <div class="carousel-inner my-auto rounded-lg">
                     {% for image in product.productimage_set.all %}
                     {% if forloop.first %}
                     <div class="carousel-item active">
-                        <!-- TODO: formatar tamanho das imagens para renderizarem bem -->
-                        <img class="card-img-top card-img-size d-block rounded-lg" src="{{ image.image.url }}"
-                            alt="{{ product.name }}">
+                        <a href="{% url 'products:detail' product.slug %}">
+                            <img class="card-img-top card-img-size d-block rounded-lg" src="{{ image.image.url }}"
+                                alt="{{ product.name }}">
+                        </a>
                     </div>
                     {% else %}
                     <div class="carousel-item">
-                        <img class="card-img-top card-img-size d-block rounded-lg" src="{{ image.image.url }}"
-                            alt="{{ product.name }}">
+                        <a href="{% url 'products:detail' product.slug %}">
+                            <img class="card-img-top card-img-size d-block rounded-lg" src="{{ image.image.url }}"
+                                alt="{{ product.name }}">
+                        </a>
                     </div>
                     {% endif %}
                     {% endfor %}

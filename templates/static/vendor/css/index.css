@@ -117,6 +117,26 @@ body main {
     outline-color: var(--main-color);
 }
 
+.mr-13 {
+    margin-right: 13px;
+}
+
+.mw-75 {
+    min-width: 75px !important;
+}
+
+.mw-40 {
+    min-width: 40px;
+}
+
+.mw-50 {
+    min-width: 50px;
+}
+
+.mw-140 {
+    min-width: 140px;
+}
+
 .mw-150 {
     min-width: 150px;
 }
@@ -140,7 +160,6 @@ div#block-search.block-outside {
     height: 100vh;
     z-index: 50;
     background-color: var(--main-color);
-    /* background-image: url('../../bgimage-here.svg'); */
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -309,7 +328,7 @@ nav.nav-header .nav-header-flex img {
 }
 
 #img-div-all {
-    max-width: 550px;
+    max-width: 450px;
 }
 
 #prev-img-detail div {
@@ -441,14 +460,9 @@ input[type="text"]:read-only {
     border-radius: 5px;
 }
 
-#nav-login {
-    margin: 0;
-    padding: 0;
-}
-
 #nav-login a {
     display: flex;
-    padding: 6px 12px;
+    padding: 5px 12px;
     width: 100%;
     height: 100%;
 }
@@ -492,8 +506,12 @@ nav.nav-header div.profile-menu {
     color: var(--third-color);
 }
 
-@media (max-width: 575.99px) {
+@media (max-width: 575px) {
     .button-border {
+        margin-right: 0;
+    }
+
+    .mr-13 {
         margin-right: 0;
     }
 
@@ -503,7 +521,7 @@ nav.nav-header div.profile-menu {
 
 }
 
-@media (max-width: 767.99px) {
+@media (max-width: 767px) {
     .mb-button-cep {
         margin: 0;
     }
@@ -522,7 +540,7 @@ nav.nav-header div.profile-menu {
     }
 }
 
-@media (max-width: 991.99px) {
+@media (max-width: 991px) {
     .btn-size {
         width: auto;
     }
@@ -545,7 +563,7 @@ nav.nav-header div.profile-menu {
     }
 }
 
-@media (min-width: 992px) and (max-width:1199.99px) {
+@media (min-width: 992px) and (max-width:1199px) {
     #nav-search-form {
         max-width: 925px;
     }

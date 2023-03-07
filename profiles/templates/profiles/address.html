@@ -30,7 +30,7 @@
                     <tr class="text-center">
                         <td class="button-table-start">
                             <form action="{% url 'profiles:delete' address.id %}" method="get">
-                                <button type="submit" class="btn btn-danger text-white">
+                                <button type="submit" class="btn btn-danger text-white shadow-all">
                                     Delete <input type="hidden" name="pk" value={{address.id}}>
                                 </button>
                             </form>
@@ -43,7 +43,7 @@
                         <td>{{address.state}}</td>
                         <td class="button-table-end">
                             <form action="{% url 'profiles:addressdetails' address.id %}" method="get">
-                                <button type="submit" class="btn main-color text-white">
+                                <button type="submit" class="btn main-color text-white shadow-all">
                                     Edit <i class="fas fa-search-plus ml-2"></i>
                                 </button>
                             </form>
@@ -56,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col ">
-                <button type="button" class='btn new-address btn-danger mt-3 float-right'><a
+                <button type="button" class='btn new-address btn-danger mt-3 float-right shadow-all'><a
                         href="{% url 'profiles:addresscreate' %}">+ New
                         Address</a></button>
             </div>
