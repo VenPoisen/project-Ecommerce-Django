@@ -40,15 +40,15 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
-    'products',
-    'demands',
-    'profiles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'products',
+    'demands',
+    'profiles',
     'crispy_forms',
 ]
 
@@ -134,11 +134,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'templates/static',]
+STATICFILES_DIRS = [BASE_DIR / 'templates/static/',]
 
 if not DEBUG:
     STATIC_ROOT = str(BASE_DIR / "staticfiles")
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Media
 
