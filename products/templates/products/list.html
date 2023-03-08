@@ -48,7 +48,9 @@
 
             <div class="card-body text-justify">
                 <h5 class="card-title text-center">{{product.name}}</h5>
+                {% if product.category != "C" %}
                 <p class="card-text">{{product.summary}}</p>
+                {% endif %}
             </div>
             <div class="container product-price-block text-center">
 
