@@ -138,7 +138,7 @@ STATICFILES_DIRS = [BASE_DIR / 'templates/static/',]
 
 if not DEBUG:
     STATIC_ROOT = str(BASE_DIR / "staticfiles")
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media
 
