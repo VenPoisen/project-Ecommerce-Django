@@ -511,6 +511,11 @@ nav.nav-header div.profile-menu {
         margin-right: 0;
     }
 
+    nav li .intern-menu {
+        right: -175px;
+        min-width: 175px;
+    }
+
     .mr-13 {
         margin-right: 0;
     }
