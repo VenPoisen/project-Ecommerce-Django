@@ -7,6 +7,22 @@
     qty_selector = document.getElementById('select-quantities');
     qty_avaiable = document.getElementById('qty_avaiable');
 
+    if (!add_cart_btn) {
+        return;
+    }
+
+    if (!error_msg) {
+        return;
+    }
+
+    if (!qty_selector) {
+        return;
+    }
+
+    if (!qty_avaiable) {
+        return;
+    }
+
     if (!select_variation) {
         return;
     }
@@ -40,32 +56,15 @@
         }
     }
 
-    if (!variation_price) {
-        return;
-    }
-
-    if (!add_cart_btn) {
-        return;
-    }
-
-    if (!error_msg) {
-        return;
-    }
-
-    if (!qty_selector) {
-        return;
-    }
-
-    if (!qty_avaiable) {
-        return;
-    }
-
     select_variation.addEventListener('change', function () {
         price = this.options[this.selectedIndex].getAttribute('data-price');
         price_promo = this.options[this.selectedIndex].getAttribute('data-price-promo');
         variation_stock = this.options[this.selectedIndex].getAttribute('stock');
         insufficient_stock = this.options[this.selectedIndex].id;
-        variation_price.innerHTML = price;
+
+        if (variation_price) {
+            variation_price.innerHTML = price;
+        }
 
         if (variation_promo_price) {
             variation_promo_price.innerHTML = price_promo;
