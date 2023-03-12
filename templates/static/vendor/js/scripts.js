@@ -29,6 +29,8 @@
     else {
         insufficient_stock = select_variation.options[select_variation.selectedIndex].id;
         variation_stock = select_variation.options[select_variation.selectedIndex].getAttribute('stock');
+        price = select_variation.options[select_variation.selectedIndex].getAttribute('data-price');
+        price_promo = select_variation[select_variation.selectedIndex].getAttribute('data-price-promo');
 
         if (insufficient_stock == "insufficient-stock") {
             add_cart_btn.disabled = true;
@@ -52,6 +54,19 @@
                 opt.value = i;
                 opt.innerHTML = i;
                 qty_selector.appendChild(opt);
+            }
+        }
+
+        if (price) {
+            variation_price.innerHTML = price;
+            variation_promo_price.innerHTML = price_promo;
+        }
+        else {
+            variation_price_none = document.getElementById('variation-price-none');
+            variation_promo_price.innerHTML = price_promo;
+
+            if (!variation_price_none) {
+                variation_price.innerHTML = "";
             }
         }
     }
