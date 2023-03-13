@@ -103,20 +103,6 @@ body main {
     color: var(--main-text-color);
 }
 
-.button-border {
-    background-color: inherit;
-    border-radius: 10%;
-    border-style: solid;
-    border-color: var(--third-color);
-    margin-right: 13px;
-}
-
-.button-border:focus {
-    outline-style: solid;
-    outline-width: 0.1px;
-    outline-color: var(--main-color);
-}
-
 .mr-13 {
     margin-right: 13px;
 }
@@ -146,7 +132,7 @@ body main {
 }
 
 .bars div {
-    width: 30px;
+    width: 26px;
     height: 2px;
     background-color: var(--main-text-color);
     margin: 6px 0;
@@ -268,7 +254,6 @@ nav li .intern-menu {
 div#block-outside.block-outside,
 div#block-search.block-outside,
 button#toggleMenu,
-.button-border:hover,
 nav#menu.menu,
 nav#menu.menu .close-menu,
 nav#menu.menu li a:hover,
@@ -295,8 +280,7 @@ nav#menu.menu li .intern-menu,
     font-size: 20px;
 }
 
-#menu .close-menu:hover,
-.button-border:hover {
+#menu .close-menu:hover {
     opacity: 0.6;
 }
 
@@ -507,10 +491,6 @@ nav.nav-header div.profile-menu {
 }
 
 @media (max-width: 575px) {
-    .button-border {
-        margin-right: 0;
-    }
-
     nav li .intern-menu {
         right: -175px;
         min-width: 175px;

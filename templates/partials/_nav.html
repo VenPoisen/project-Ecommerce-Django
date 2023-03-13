@@ -27,8 +27,9 @@
                     </div>
                 </form>
             </div>
-            <div>
-                <button class="button-border d-flex d-lg-none ml-auto mb-2" type="button" onclick="toggleMenu()">
+            <div class="d-flex flex-column align-items-center">
+                <button class="btn btn-outline-danger btn-sm btn-size d-lg-none mb-2" type="button"
+                    onclick="toggleMenu()">
                     <div class="bars">
                         <div></div>
                         <div></div>
@@ -51,8 +52,9 @@
                             type="button">
                             Profile &#9662
                         </button>
-                        <button class='btn btn-outline-danger btn-sm btn-size text-white d-sm-none' type="button">
-                            <i class="fa fa-user"></i> &#9662
+                        <button class='btn btn-outline-danger btn-sm btn-size btn-sm-size text-white d-sm-none'
+                            type="button">
+                            <i class="fa fa-user"></i>
                         </button>
                         <div class="profile-intern-menu main-color" id="profileDropDown">
                             <a href="{% url 'orders:list' %}">My Orders</a>
@@ -65,8 +67,7 @@
 
                     {% else %}
                     <button id="nav-login"
-                        class="btn btn-outline-danger btn-sm btn-size btn-sm-size text-white login-button mr-13 mr-lg-0 p-0"
-                        type="button">
+                        class="btn btn-outline-danger btn-sm btn-size btn-sm-size text-white mr-lg-0 p-0" type="button">
                         <a href="{% url 'profiles:create' %}" class="justify-content-center">
                             <i class="fa fa-user"></i>
                             <span class="d-none d-lg-block ml-2">Login</span>
