@@ -24,7 +24,7 @@ class DispatchLoginRequired(View):
 
 
 class SaveOrder(View):
-    template_name = 'orders/pay.html'
+    template_name = 'orders/orderdetails.html'
 
     def get(self, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -141,26 +141,12 @@ class SaveOrder(View):
             del self.request.session['cart']
             return redirect(
                 reverse(
-                    'orders:pay',
+                    'orders:details',
                     kwargs={
                         'pk': order.pk
                     }
                 )
             )
-
-
-class Pay(DispatchLoginRequired, DetailView):
-    template_name = 'orders/pay.html'
-
-    def get(self, *args, **kwargs):
-        order_pk = kwargs.get('pk', None)
-        order = Demand.objects.filter(id=order_pk).first()
-
-        context = {
-            'order': order,
-            'address': AddressDemand.objects.filter(order=order).first()
-        }
-        return render(self.request, self.template_name, context)
 
 
 class OrderList(DispatchLoginRequired, ListView):
