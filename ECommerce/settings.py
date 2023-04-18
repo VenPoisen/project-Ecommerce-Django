@@ -13,15 +13,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import mimetypes
 from pathlib import Path
 from django.contrib.messages import constants
-import os
 import environ
 
 env = environ.Env()
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file on root.
+environ.Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -30,18 +30,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True if env('DEBUG') == '1' else False
 
-ALLOWED_HOSTS = ['ecommerce-django.onrender.com', '127.0.0.1']
-
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+ALLOWED_HOSTS = ['ecommerce.alanmf.com']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -145,6 +140,16 @@ if not DEBUG:
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+# Admin page
+
+ADMIN_ENABLED = True if env('ADMIN_ENABLED') == '1' else False
+if ADMIN_ENABLED:
+    INSTALLED_APPS.append('django.contrib.admin',)
+
+# CRSF Token
+
+CSRF_TRUSTED_ORIGINS = ['https://ecommerce.alanmf.com']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

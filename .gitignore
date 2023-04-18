@@ -60,6 +60,8 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+staticfiles/
+gunicorn-error-log
 
 # Flask stuff:
 instance/
@@ -127,3 +129,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# vscode
+.vscode
+
+# gunicorn and nginx how to config
+deploy/
+gunicorn*.txt
+gunicorn*.md
+nginx*.txt
+nginx*.md
