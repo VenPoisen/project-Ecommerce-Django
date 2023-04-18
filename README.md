@@ -1,10 +1,7 @@
 # project E-commerce Django
-This is an E-commerce project created using Django 4.1.4 and Python 3.8. The database used is a PostgreSQL hosted on AWS, and the website is hosted on (https://render.com/).
+This is an E-commerce project created using Django 4.1.4 and Python 3.8. The database used is a PostgreSQL hosted on AWS, and the website is hosted on EC2 instance on AWS.
 
 ## You can access the E-commerce webpage here -> https://ecommerce.alanmf.com
-
-> **Note**
-> It may take some time (less than 3 min) to access the webpage as it is hosted on a free plan at render.com
 
 ## Educational content
 This repository is for learning purposes and none of the products created within the page are real. 
