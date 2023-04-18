@@ -12,7 +12,10 @@ today = date.today()
 
 class ProfileForm(forms.ModelForm):
     birth_date = forms.DateField(widget=forms.DateInput(
-        attrs={'type': 'date', 'max': today}), required=True)
+        attrs={'type': 'date', 'max': today}), required=True, label='Birth Date')
+
+    cpf = forms.CharField(
+        max_length=11, help_text='CPF only numbers', label='CPF')
 
     class Meta:
         model = models.Profile
@@ -78,6 +81,7 @@ class CEPForm(forms.ModelForm):
 
 
 class UserForm(forms.ModelForm):
+    email = forms.EmailField(label='Email Address')
     password = forms.CharField(
         required=False,
         widget=forms.PasswordInput(),
