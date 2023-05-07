@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if env('DEBUG') == '1' else False
 
-ALLOWED_HOSTS = ['ecommerce.alanmf.com']
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Application definition
 
@@ -85,12 +85,12 @@ WSGI_APPLICATION = 'ECommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
+        'ENGINE': env('DATABASE_ENGINE'),
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
@@ -149,7 +149,7 @@ if ADMIN_ENABLED:
 
 # CRSF Token
 
-CSRF_TRUSTED_ORIGINS = ['https://ecommerce.alanmf.com']
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
