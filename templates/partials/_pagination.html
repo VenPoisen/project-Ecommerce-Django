@@ -6,10 +6,11 @@
             <ul class="pagination">
                 {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link second-color" href="?page=1">&laquo;</a>
+                    <a class="page-link second-color" href="?page=1{{additional_url_query}}">&laquo;</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link second-color" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+                    <a class="page-link second-color"
+                        href="?page={{ page_obj.previous_page_number }}{{additional_url_query}}">&lsaquo;</a>
                 </li>
                 {% endif %}
 
@@ -17,10 +18,10 @@
 
                 {% if page_obj.number == num %}
                 <li class="page-item">
-                    <a class="page-link main-color" href="?page={{ num }}">{{ num }}</a>
+                    <a class="page-link main-color" href="?page={{ num }}{{additional_url_query}}">{{ num }}</a>
                 </li>
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
-                    <a class="page-link second-color" href="?page={{ num }}">{{ num }}</a>
+                    <a class="page-link second-color" href="?page={{ num }}{{additional_url_query}}">{{ num }}</a>
                     </li>
                     {% endif %}
 
@@ -28,10 +29,12 @@
 
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link second-color" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+                        <a class="page-link second-color"
+                            href="?page={{ page_obj.next_page_number }}{{additional_url_query}}">&rsaquo;</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link second-color" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                        <a class="page-link second-color"
+                            href="?page={{ page_obj.paginator.num_pages }}{{additional_url_query}}">&raquo;</a>
                     </li>
                     {% endif %}
             </ul>

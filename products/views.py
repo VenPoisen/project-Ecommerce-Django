@@ -1,8 +1,7 @@
-from crispy_forms.templatetags.crispy_forms_filters import as_crispy_field
 from utils.utils import price_format, cart_totals
 from utils import shippingcalculator
 from utils import addressgenerator
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from profiles.models import Address, Profile
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
@@ -25,23 +24,32 @@ class ProductList(ListView):
 
 class Search(ProductList):
     def get_queryset(self, *args, **kwargs):
-        term = self.request.GET.get('term')
+        self.term = self.request.GET.get('term')
         qs = super().get_queryset(*args, **kwargs)
 
-        if not term:
+        if not self.term:
             return qs
 
-        self.request.session['term'] = term
-
         qs = qs.filter(
-            Q(name__icontains=term) |
-            Q(summary__icontains=term) |
-            Q(description__icontains=term)
+            Q(name__icontains=self.term) |
+            Q(summary__icontains=self.term) |
+            Q(description__icontains=self.term)
         )
 
-        self.request.session.save()
-
         return qs
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        search_term = self.term
+
+        if not search_term:
+            return ctx
+
+        ctx.update({
+            "additional_url_query": f'&term={search_term}',
+        })
+
+        return ctx
 
 
 class ProductCategory(ProductList):
