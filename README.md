@@ -59,7 +59,21 @@ In this folder is located some python code for implemented features.
 ```
 git clone https://github.com/VenPoisen/project-Ecommerce-Django.git
 ```
-
+Create a virtual enviroment and activate it
+```
+py -m venv venv
+./venv/Scripts/activate
+```
+Install the requirements
 ```
 pip install -r requirements.txt
 ```
+IMPORTANT:
+- Create a .env file on the root and copy/change the values from .env-example, remove the quotes("") and the spaces before/after equal sign(=)
+
+Finally migrate and runserver
+```
+python manage.py migrate
+python manage.py runserver
+```
+That's it!
