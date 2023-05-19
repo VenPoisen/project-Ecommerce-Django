@@ -134,16 +134,11 @@
 
 (function () {
     del_qty = document.getElementsByName('del-qty');
-    item_qty = document.getElementsByName('item-qty');
 
-    if (!del_qty) {
+    if (del_qty.length === 0) {
         return;
-    }
-
-    if (!item_qty) {
-        return;
-    }
-    else {
+    } else {
+        item_qty = document.getElementsByName('item-qty');
         for (var i = 0; i < item_qty.length; i++) {
             qty_items_cart = item_qty[i].getAttribute('itemsQTY');
 
